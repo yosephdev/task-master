@@ -89,3 +89,19 @@ Implemented a function `add_task(title, description, status='Pending')` to add a
 ### Step 5: Implement a Function to Update an Existing Task
 
 Implemented a function `update_task(index, title=None, description=None, status=None)` to update an existing task in the `tasks` list. The function takes an index to identify the task to be updated, and optional parameters to specify the new title, description, and status of the task. If any of the optional parameters are provided, the corresponding task attribute is updated. After updating the task, the `save_tasks()` function is called to save the changes to the JSON file.
+
+## Input
+
+## Future Features
+
+## Data Model
+
+## Testing
+
+## Bugs
+
+## Validator Testing
+
+## Deployment
+
+## Credits
