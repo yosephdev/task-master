@@ -5,7 +5,7 @@ tasks = []
 def load_tasks():
     global tasks
     try:
-        with open('tasks.json', 'r') as file:
+        with open('tasks.json', r') as file:
             tasks = json.load(file)
     except FileFoundError:
         tasks = []
@@ -18,3 +18,19 @@ def add_task(title, description, status='Pending'):
     tasks.append({'title': title, 'description': description, 'status': status})
     save_tasks()
     print("Tasks added successfully.")
+
+def update_task(index, title=None, description=None, status=None):
+    if index < 0 or index >= len(tasks):
+        print("Invalid task index.")
+        return
+
+    task = tasks[index]
+    if title is not None:
+        task['title'] = title
+    if description is not None:
+        task['description'] = description
+    if status is not None:
+        task['status'] = status
+    
+    save_tasks()
+    print("Task updated successfully.")    
