@@ -12,8 +12,8 @@ Welcome to the Task Management App! This command-line application is designed to
   - [Initial Design](#initial-design)
       - [Menu-Driven Interface](#menu-driven-interface)
       - [Screenshots](#screenshots)
-  - [How to Use](#how-to-use)  
-
+  - [How to Use](#how-to-use)
+  - [Core Logic for Managing Tasks](#core-logic) 
 
 ## Project Overview
 
@@ -81,3 +81,7 @@ Implemented a function `load_tasks()` to load tasks from a JSON file. If the fil
 ### Step 3: Implement a Function to Save Tasks to a JSON File
 
 Implemented a function `save_tasks()` to save tasks to a JSON file named `tasks.json`.
+
+### Step 4: Implement a Function to Add a New Task
+
+Implemented a function `add_task(title, description, status='Pending')` to add a new task to the `tasks` list. The task is represented as a dictionary containing 'title', 'description', and 'status' keys. By default, the status is set to 'Pending'. After adding the task, the `save_tasks()` function is called to save the updated task list to the JSON file.
