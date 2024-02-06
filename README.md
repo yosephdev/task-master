@@ -7,7 +7,13 @@ Welcome to the Task Management App! This command-line application is designed to
 - [Task Management App](#task-management-app)
   - [Project Overview](#project-overview)
   - [Main Technologies](#main-technologies)
-    
+  - [Features](#features)
+  - [Planned Features](#planned-features)
+  - [Initial Design](#initial-design)
+      - [Menu-Driven Interface](#menu-driven-interface)
+      - [Screenshots](#screenshots)
+
+
 ## Project Overview
 
 In this project, I aim to develop a user-friendly command-line application for task management using Python. The goal is to provide users with an efficient and intuitive tool for creating, updating, and tracking tasks to increase productivity and organization.
@@ -15,3 +21,37 @@ In this project, I aim to develop a user-friendly command-line application for t
 ## Main Technologies
 
 The Task Management App is primarily built using Python.
+
+### Features
+
+#### Planned Features
+
+- **Task Filtering**: Implement functionality to filter tasks based on various criteria, such as priority, due date, or  status.
+  
+- **Task Reminders**: Introduce reminders for upcoming tasks to help users stay on track and meet deadlines.
+  
+- **Task Categories**: Allow users to categorize tasks into different categories or projects for better organization.
+
+#### Initial Design
+
+##### Menu-Driven Interface
+
+- The Task Management App features a user-friendly menu-driven interface with the following options:
+  - **Add Task**: Allow users to add a new task by providing details such as title, description, and due date.
+  - **Update Task**: Enables users to update existing tasks by editing their title, description, due date, or status.
+  - **List Tasks**: Displays a list of all tasks, including their titles, descriptions, due dates, and statuses
+  - **Delete Task**: Provides users with the ability to remove tasks that are no longer needed.
+
+##### Screenshots
+
+**Figure 1: Task Management Application - Main Menu**
+
+[Main Menu]
+
+**Figure 2: Task Management Application - Menu-Driven Interface Flowchart**
+
+![Menu-Driven Interface](./docs/Menu-Driven-Interface-Flowchart.png)
+
+**Figure 3: Task Management Application - Add Task**
+
+[Add Task]
