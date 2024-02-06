@@ -12,6 +12,7 @@ Welcome to the Task Management App! This command-line application is designed to
   - [Initial Design](#initial-design)
       - [Menu-Driven Interface](#menu-driven-interface)
       - [Screenshots](#screenshots)
+  - [How to Use](#how-to-use)  
 
 
 ## Project Overview
@@ -76,3 +77,7 @@ Initialized an empty list to store tasks.
 ### Step 2: Implement a Function to Load Tasks from a JSON File
 
 Implemented a function `load_tasks()` to load tasks from a JSON file. If the file `tasks.json` exists, tasks are loaded into the global `tasks` list. If the file does not exist, an empty list is assigned to `tasks`.
+
+### Step 3: Implement a Function to Save Tasks to a JSON File
+
+Implemented a function `save_tasks()` to save tasks to a JSON file named `tasks.json`.
