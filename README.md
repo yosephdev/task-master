@@ -72,3 +72,7 @@ The core logic for managing tasks is implemented within the Python script/module
 ### Step 1: Initialize an Empty List for Tasks
 
 Initialized an empty list to store tasks.
+
+### Step 2: Implement a Function to Load Tasks from a JSON File
+
+Implemented a function `load_tasks()` to load tasks from a JSON file. If the file `tasks.json` exists, tasks are loaded into the global `tasks` list. If the file does not exist, an empty list is assigned to `tasks`.
