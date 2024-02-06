@@ -9,3 +9,7 @@ def load_tasks():
             tasks = json.load(file)
     except FileFoundError:
         tasks = []
+
+def save_tasks():
+    with open('tasks.json', 'w') as file:
+        json.dump(tasks, file)
