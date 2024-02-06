@@ -68,3 +68,7 @@ Task Management App is a command-line application, and its usage is straightforw
 ## Core Logic for Managing Tasks
 
 The core logic for managing tasks is implemented within the Python script/module. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
+
+### Step 1: Initialize an Empty List for Tasks
+
+Initialized an empty list to store tasks.
