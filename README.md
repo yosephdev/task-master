@@ -60,9 +60,25 @@ To use Task Master, follow these steps:
 
 The core logic for managing tasks is implemented within the Python script. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
 
+### Planned Features
+
+1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks.
+
+2. **Task Filtering and Sorting:** Provide options for users to filter and sort tasks based on criteria such as priority, due date, and status. 
+
+3. **User Authentication and Authorization:** Implement user accounts with authentication and authorization mechanisms to ensure data privacy and security. Users can sign up, log in, and manage their accounts securely.
+
 ## Documentation
 
 The codebase is documented with comments to explain the purpose and functionality of each function or section. 
+
+### Future Features
+
+- **Task Creation and Organization:** Allow users to create tasks with details such as title, description, due date, priority level, and status. 
+
+- **Collaboration and Sharing:** Support collaboration features such as task assignment, sharing projects or tasks with team members, and commenting on tasks. 
+
+- **Data Export and Import:** Allow users to export task data to common file formats. 
 
 ## Testing
 
