@@ -98,6 +98,10 @@ Implemented a function `list_tasks()` to display a list of all tasks stored in t
 
 Implemented a function `delete_task(index)` to delete a task from the `tasks`list based on its index. The function first checks if the index is valid, and if so, deletes the task at the specified index. After deleting the task, the `save_tasks()` function is called to save the updated task list to the JSON file.
 
+### Step 8: Implement a Main Function as the Menu-Driven Interface
+
+Implemented a main function `task_master()` to serve as the menu driven interface for the Task Management App. The function continuously displays a menu of options for adding, updating, listing, and deleting tasks, as well as exiting the application. User input is used to select the desired option, and corresponding functions are called to perform the requested actions.
+
 ## Input
 
 ## Future Features
