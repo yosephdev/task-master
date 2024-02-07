@@ -1,5 +1,14 @@
 import json
 
+ascii_art_header = """
+  _____            _     __  __              _              
+ |_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __ 
+   | | / _` |/ __|| |/ /| |\/| | / _` |/ __|| __|/ _ \| '__|
+   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |   
+   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|  
+                                                       
+"""
+
 tasks = []
 
 def load_tasks():
@@ -50,10 +59,11 @@ def delete_task(index):
     print("Task deleted successfully.")
 
 def task_master():
+    print(ascii_art_header)
     load_tasks()
 
     while True:
-        print("\nTaskMaster - Task Management App")
+        print("\nWelcome to TaskMaster - Task Management App!")        
         print("1. Add Task")
         print("2. Update Task")
         print("3. List Tasks")
