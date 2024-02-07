@@ -34,3 +34,8 @@ def update_task(index, title=None, description=None, status=None):
     
     save_tasks()
     print("Task updated successfully.")    
+
+def list_tasks():
+    print("List of Tasks:")
+    for i, task in enumerate(tasks):
+        print(f"{i + 1}. Title: {task['title']}, Description: {task['description']}, Status: {task['status']}")
