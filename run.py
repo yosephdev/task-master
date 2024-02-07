@@ -1,4 +1,5 @@
 import json
+import datetime
 
 
 ascii_art_header = r"""
@@ -32,12 +33,25 @@ def save_tasks():
 
 
 def add_task(title, description, status='Pending'):
-    tasks.append({
+    deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
+    
+    if deadline == "":
+        deadline = None
+    else:
+        try:
+            datetime.datetime.strptime(deadline, "%Y-%m-%d")
+        except ValueError:
+            print("Invalid deadline format. Please enter in YYYY-MM-DD format.")
+            return
+
+    new_task = {
         'title': title,
         'description': description,
-        'status': status
-    })
-
+        'status': status,
+        "deadline": deadline
+    }    
+    
+    tasks.append(new_task)
     save_tasks()
     print("Tasks added successfully.")
 
@@ -62,9 +76,12 @@ def update_task(index, title=None, description=None, status=None):
 def list_tasks():
     print("List of Tasks:")
     for i, task in enumerate(tasks):
+        deadline = task.get('deadline')
+        formatted_deadline = datetime.datetime.strptime(deadline, "%Y-%m-%d").strftime("%Y-%m-%d") if deadline else "None"
         print(f"{i + 1}. Title: {task['title']}, "
               f"Description: {task['description']}, "
-              f"Status: {task['status']}")
+              f"Status: {task['status']}, "
+              f"Deadline: {formatted_deadline}")
 
 
 def delete_task(index):
