@@ -50,13 +50,23 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 ![Add Task](./docs/add-task.png)
 
+### Implemented Features
+
+1. **Task Deadlines:** Users can now add deadlines to tasks, allowing for better task tracking and time management.
+   
+2. **Adding Tasks:** Users can add new tasks to the task list, providing a title, description, and optional deadline.
+
+3. **Updating Tasks:** Users can update existing tasks, modifying their title, description, status, or deadline as needed.
+
+4. **Listing Tasks:** Users can view a list of all tasks, including their titles, descriptions, statuses, and deadlines.
+
+5. **Deleting Tasks:** Users can delete tasks from the task list, removing them permanently.
+
 ### Planned Features
 
 1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks.
 
 2. **Task Filtering and Sorting:** Provide options for users to filter and sort tasks based on criteria such as priority, due date, and status. 
-
-3. **User Authentication and Authorization:** Implement user accounts with authentication and authorization mechanisms to ensure data privacy and security. Users can sign up, log in, and manage their accounts securely.
 
 ## How to Use
 
@@ -76,11 +86,11 @@ The codebase is documented with comments to explain the purpose and functionalit
 
 ## Future Features
 
-- **Task Creation and Organization:** Allow users to create tasks with details such as title, description, due date, priority level, and status. 
-
-- **Collaboration and Sharing:** Support collaboration features such as task assignment, sharing projects or tasks with team members, and commenting on tasks. 
+- **Task Creation and Organization:** Allow users to create tasks with details such as due date, priority level, and status. 
 
 - **Data Export and Import:** Allow users to export task data to common file formats. 
+
+- **User Authentication and Authorization:** Allow users to sign up, log in, and manage their accounts securely.
 
 ## Testing
 
