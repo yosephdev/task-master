@@ -70,26 +70,33 @@ def task_master():
         print("4. Delete Task")
         print("5. Exit")
 
-        choice = input("Enter your choice: ")
+        try:
+            choice = int(input("Enter your choice: "))
+            if choice < 1 or choice > 5:
+                raise ValueError("Invalid choice. Please select a valid option.")
+        except ValueError as e:
+            print(f"Error: {e}")
+            print("Please enter a valid integer between 1 and 5.")
+            continue
 
-        if choice == '1':
+        if choice == 1:
             title = input("Enter task title: ")
             description = input("Enter task description: ")
             add_task(title, description)
-        elif choice == '2':
+        elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
             title = input("Enter new title (leave empty to keep unchanged): ")
             description = input("Enter new description (leave empty to keep unchanged): ")
             status = input("Enter new status (leave empty to keep unchanged): ")
             update_task(index, title, description, status)
-        elif choice == '3':
+        elif choice == 3:
             list_tasks()
-        elif choice == '4':
+        elif choice == 4:
             list_tasks()
             index = int(input("Enter the index of the task to delete: ")) - 1
             delete_task(index)
-        elif choice == '5':
+        elif choice == 5:
             print("Exiting TaskMaster. Goodbye!")
             break
         else:
