@@ -1,32 +1,46 @@
 import json
 
-ascii_art_header = """
-  _____            _     __  __              _              
- |_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __ 
+
+ascii_art_header = r"""
+
+
+|_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __
    | | / _` |/ __|| |/ /| |\/| | / _` |/ __|| __|/ _ \| '__|
-   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |   
-   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|  
-                                                       
+   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |
+   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|
+
+
 """
+
 
 tasks = []
 
+
 def load_tasks():
     global tasks
+
     try:
         with open('tasks.json', 'r') as file:
             tasks = json.load(file)
     except FileNotFoundError:
         tasks = []
 
+
 def save_tasks():
     with open('tasks.json', 'w') as file:
         json.dump(tasks, file)
 
+
 def add_task(title, description, status='Pending'):
-    tasks.append({'title': title, 'description': description, 'status': status})
+    tasks.append({
+        'title': title,
+        'description': description,
+        'status': status
+    })
+
     save_tasks()
     print("Tasks added successfully.")
+
 
 def update_task(index, title=None, description=None, status=None):
     if index < 0 or index >= len(tasks):
@@ -40,14 +54,18 @@ def update_task(index, title=None, description=None, status=None):
         task['description'] = description
     if status is not None:
         task['status'] = status
-    
+
     save_tasks()
-    print("Task updated successfully.")    
+    print("Task updated successfully.")
+
 
 def list_tasks():
     print("List of Tasks:")
     for i, task in enumerate(tasks):
-        print(f"{i + 1}. Title: {task['title']}, Description: {task['description']}, Status: {task['status']}")
+        print(f"{i + 1}. Title: {task['title']}, "
+              f"Description: {task['description']}, "
+              f"Status: {task['status']}")
+
 
 def delete_task(index):
     if index < 0 or index >= len(tasks):
@@ -58,12 +76,13 @@ def delete_task(index):
     save_tasks()
     print("Task deleted successfully.")
 
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
 
     while True:
-        print("\nWelcome to TaskMaster - Task Management App!")        
+        print("\nWelcome to TaskMaster - Task Management App!")
         print("1. Add Task")
         print("2. Update Task")
         print("3. List Tasks")
@@ -73,7 +92,7 @@ def task_master():
         try:
             choice = int(input("Enter your choice: "))
             if choice < 1 or choice > 5:
-                raise ValueError("Invalid choice. Please select a valid option.")
+                raise ValueError("Invalid choice.")
         except ValueError as e:
             print(f"Error: {e}")
             print("Please enter a valid integer between 1 and 5.")
@@ -86,9 +105,9 @@ def task_master():
         elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
-            title = input("Enter new title (leave empty to keep unchanged): ")
-            description = input("Enter new description (leave empty to keep unchanged): ")
-            status = input("Enter new status (leave empty to keep unchanged): ")
+            title = input("Enter new title: ")
+            description = input("Enter new description: ")
+            status = input("Enter new status: ")
             update_task(index, title, description, status)
         elif choice == 3:
             list_tasks()
@@ -102,5 +121,7 @@ def task_master():
         else:
             print("Invalid choice. Please select a valid option.")
 
+
 if __name__ == "__main__":
+
     task_master()
