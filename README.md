@@ -1,47 +1,38 @@
-# Task Management App
+# Task Master
 
-Welcome to the Task Management App! This command-line application is designed to help users organize and manage their tasks effectively. Whether you're a busy professional, a student with deadlines, or someone looking to stay organized, this app provides a comprehensive set of features to create, update, prioritize, and track tasks.
+Task Master is a Python command-line application designed to help users organize and manage their tasks efficiently. It provides a user-friendly interface where users can add, update, list, and delete tasks. The application utilizes basic data structures such as lists and dictionaries to store task information and incorporates file I/O operations for persistent data storage.
 
 ## Table of Contents
 
-- [Task Management App](#task-management-app)
+- [Task Master](#task-master)
   - [Project Overview](#project-overview)
   - [Main Technologies](#main-technologies)
   - [Features](#features)
-  - [Planned Features](#planned-features)
-  - [Initial Design](#initial-design)
-      - [Menu-Driven Interface](#menu-driven-interface)
-      - [Screenshots](#screenshots)
-  - [How to Use](#how-to-use)
-  - [Core Logic for Managing Tasks](#core-logic) 
+    - [App Overview](#app-overview)
+    - [How to Use](#how-to-use)
+  - [Core Logic for Managing Tasks](#core-logic-for-managing-tasks)
+  - [Documentation](#documentation)
+  - [Testing](#testing)
+  - [Bugs](#bugs)
+  - [Validator Testing](#validator-testing)
+  - [Bugs](#bugs)
+  - [Validator Testing](#validator-testing)
+  - [Deployment](#deployment)
+  - [Credits](#credits)
 
 ## Project Overview
 
-In this project, I aim to develop a user-friendly command-line application for task management using Python. The goal is to provide users with an efficient and intuitive tool for creating, updating, and tracking tasks to increase productivity and organization.
+Task Master is developed to provide users with a simple yet effective tool for managing their tasks. The project aims to enhance productivity and organization by offering essential task management functionalities through a command-line interface.
 
 ## Main Technologies
 
-The Task Management App is primarily built using Python.
+Task Master primarily utilizes core Python functionalities for its implementation.
 
 ### Features
 
-#### Planned Features
+### App Overview
 
-- **Task Filtering**: Implement functionality to filter tasks based on various criteria, such as priority, due date, or  status.
-  
-- **Task Reminders**: Introduce reminders for upcoming tasks to help users stay on track and meet deadlines.
-  
-- **Task Categories**: Allow users to categorize tasks into different categories or projects for better organization.
-
-#### Initial Design
-
-##### Menu-Driven Interface
-
-- The Task Management App features a user-friendly menu-driven interface with the following options:
-  - **Add Task**: Allow users to add a new task by providing details such as title, description, and due date.
-  - **Update Task**: Enables users to update existing tasks by editing their title, description, due date, or status.
-  - **List Tasks**: Displays a list of all tasks, including their titles, descriptions, due dates, and statuses
-  - **Delete Task**: Provides users with the ability to remove tasks that are no longer needed.
+Task Master presents a menu-driven interface with options for adding, updating, listing, and deleting tasks. Users interact with the application through intuitive commands, making task management seamless and efficient.
 
 ##### Screenshots
 
@@ -59,61 +50,53 @@ The Task Management App is primarily built using Python.
 
 ## How to Use
 
-Task Management App is a command-line application, and its usage is straightforward:
+To use Task Master, follow these steps:
 
-1. View existing tasks.
-2. Create new tasks.
-3. Update or delete tasks as needed.
-4. Prioritize tasks based on urgency or importance.
+1. Select the desired option from the menu to perform specific tasks, such as adding, updating, listing, or deleting tasks.
+2. Input the required information as prompted by the application.
+3. Follow the on-screen instructions to navigate through the various functionalities of Task Master.
 
 ## Core Logic for Managing Tasks
 
-The core logic for managing tasks is implemented within the Python script/module. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
+The core logic for managing tasks is implemented within the Python script. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
 
-### Step 1: Initialize an Empty List for Tasks
+## Documentation
 
-Initialized an empty list to store tasks.
-
-### Step 2: Implement a Function to Load Tasks from a JSON File
-
-Implemented a function `load_tasks()` to load tasks from a JSON file. If the file `tasks.json` exists, tasks are loaded into the global `tasks` list. If the file does not exist, an empty list is assigned to `tasks`.
-
-### Step 3: Implement a Function to Save Tasks to a JSON File
-
-Implemented a function `save_tasks()` to save tasks to a JSON file named `tasks.json`.
-
-### Step 4: Implement a Function to Add a New Task
-
-Implemented a function `add_task(title, description, status='Pending')` to add a new task to the `tasks` list. The task is represented as a dictionary containing 'title', 'description', and 'status' keys. By default, the status is set to 'Pending'. After adding the task, the `save_tasks()` function is called to save the updated task list to the JSON file.
-
-### Step 5: Implement a Function to Update an Existing Task
-
-Implemented a function `update_task(index, title=None, description=None, status=None)` to update an existing task in the `tasks` list. The function takes an index to identify the task to be updated, and optional parameters to specify the new title, description, and status of the task. If any of the optional parameters are provided, the corresponding task attribute is updated. After updating the task, the `save_tasks()` function is called to save the changes to the JSON file.
-
-### Step 6: Implement a Function to List All Tasks
-
-Implemented a function `list_tasks()` to display a list of all tasks stored in the `tasks` list. The function iterates through each task, displaying its title, description, and status.
-
-### Step 7: Implement a Function to Delete a Task
-
-Implemented a function `delete_task(index)` to delete a task from the `tasks`list based on its index. The function first checks if the index is valid, and if so, deletes the task at the specified index. After deleting the task, the `save_tasks()` function is called to save the updated task list to the JSON file.
-
-### Step 8: Implement a Main Function as the Menu-Driven Interface
-
-Implemented a main function `task_master()` to serve as the menu driven interface for the Task Management App. The function continuously displays a menu of options for adding, updating, listing, and deleting tasks, as well as exiting the application. User input is used to select the desired option, and corresponding functions are called to perform the requested actions.
-
-## Input
-
-## Future Features
-
-## Data Model
+The codebase is documented with comments to explain the purpose and functionality of each function or section. 
 
 ## Testing
 
+I have manually tested Task Master by performing the following steps:
+
+1. Passed the code through the Python linter and confirmed there are no syntax or style problems.
+2. Provided invalid inputs, such as strings where integers are expected, out-of-bound inputs, and duplicate inputs for various operations like adding, updating, listing, or deleting tasks. Ensured that the application handles invalid inputs gracefully and displays appropriate error messages.
+3. Tested different combinations of task data, including various titles, descriptions, and statuses, to ensure that tasks are added, updated, listed, and deleted accurately.
+4. Checked for each outcome of the task management operations to verify if the correct output is displayed. Ensured that tasks are manipulated as expected and that the application behaves correctly in all scenarios.
+5. Verified the functionality for multiple task management sessions to ensure that the tasks are persisted correctly between sessions and that the application maintains accurate task data.
+6. Tested the application in both local and simulated environments to ensure consistent behavior across different platforms and setups.
+
+
 ## Bugs
+
+No bugs were found during the development process. 
 
 ## Validator Testing
 
+No errors were returned from the pep8ci.herokuapp.com
+
 ## Deployment
 
+As of now, Task Master has not been deployed. However, the deployment process is planned to be carried out using the Code Institute's mock terminal from Heroku. The steps for deployment will include:
+
+1. Clone this repository.
+2. Create a new Heroku app.
+3. Set the config vars key PORT and value 8000.
+4. Set the build packs to Python and NodeJS in that order.
+5. Link the Heroku app to the repository.
+6. Click on deploy.
+
 ## Credits
+
+- [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) for project guidance and feedback.
+- Credits to Code institute for the deployment terminal
+- Credits to the Python community for providing valuable resources for Python development.
