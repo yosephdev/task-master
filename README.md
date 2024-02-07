@@ -94,6 +94,10 @@ Implemented a function `update_task(index, title=None, description=None, status=
 
 Implemented a function `list_tasks()` to display a list of all tasks stored in the `tasks` list. The function iterates through each task, displaying its title, description, and status.
 
+### Step 7: Implement a Function to Delete a Task
+
+Implemented a function `delete_task(index)` to delete a task from the `tasks`list based on its index. The function first checks if the index is valid, and if so, deletes the task at the specified index. After deleting the task, the `save_tasks()` function is called to save the updated task list to the JSON file.
+
 ## Input
 
 ## Future Features
