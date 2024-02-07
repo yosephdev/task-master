@@ -104,7 +104,9 @@ def task_master():
         print("2. Update Task")
         print("3. List Tasks")
         print("4. Delete Task")
-        print("5. Exit")
+        print("5. Filter Tasks")
+        print("6. Sort Tasks") 
+        print("7. Exit")
 
         try:
             choice = int(input("Enter your choice: "))
@@ -112,7 +114,7 @@ def task_master():
                 raise ValueError("Invalid choice.")
         except ValueError as e:
             print(f"Error: {e}")
-            print("Please enter a valid integer between 1 and 5.")
+            print("Please enter a valid integer between 1 and 7.")
             continue
 
         if choice == 1:
@@ -133,6 +135,10 @@ def task_master():
             index = int(input("Enter the index of the task to delete: ")) - 1
             delete_task(index)
         elif choice == 5:
+            filter_tasks() 
+        elif choice == 6:
+            sort_tasks()
+        elif choice == 7:
             print("Exiting TaskMaster. Goodbye!")
             break
         else:
