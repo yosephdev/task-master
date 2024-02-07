@@ -9,7 +9,9 @@ Task Master is a Python command-line application designed to help users organize
   - [Main Technologies](#main-technologies)
   - [Features](#features)
     - [App Overview](#app-overview)
-    - [How to Use](#how-to-use)
+    - [Screenshots](#screenshots)
+    - [Planned Features](#planned-features)
+    - [How to Use](#how-to-use)    
   - [Core Logic for Managing Tasks](#core-logic-for-managing-tasks)
   - [Documentation](#documentation)
   - [Testing](#testing)
@@ -34,19 +36,27 @@ Task Master primarily utilizes core Python functionalities for its implementatio
 
 Task Master presents a menu-driven interface with options for adding, updating, listing, and deleting tasks. Users interact with the application through intuitive commands, making task management seamless and efficient.
 
-##### Screenshots
+### Screenshots
 
 **Figure 1: Task Management Application - Main Menu**
 
-[Main Menu]
+![Main Menu](./docs/main-menu.png)
 
 **Figure 2: Task Management Application - Menu-Driven Interface Flowchart**
 
-![Menu-Driven Interface](./docs/Menu-Driven-Interface-Flowchart.png)
+![Menu-Driven Interface](./docs/interface-flowchart.png)
 
 **Figure 3: Task Management Application - Add Task**
 
-[Add Task]
+![Add Task](./docs/add-task.png)
+
+### Planned Features
+
+1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks.
+
+2. **Task Filtering and Sorting:** Provide options for users to filter and sort tasks based on criteria such as priority, due date, and status. 
+
+3. **User Authentication and Authorization:** Implement user accounts with authentication and authorization mechanisms to ensure data privacy and security. Users can sign up, log in, and manage their accounts securely.
 
 ## How to Use
 
@@ -60,19 +70,11 @@ To use Task Master, follow these steps:
 
 The core logic for managing tasks is implemented within the Python script. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
 
-### Planned Features
-
-1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks.
-
-2. **Task Filtering and Sorting:** Provide options for users to filter and sort tasks based on criteria such as priority, due date, and status. 
-
-3. **User Authentication and Authorization:** Implement user accounts with authentication and authorization mechanisms to ensure data privacy and security. Users can sign up, log in, and manage their accounts securely.
-
 ## Documentation
 
 The codebase is documented with comments to explain the purpose and functionality of each function or section. 
 
-### Future Features
+## Future Features
 
 - **Task Creation and Organization:** Allow users to create tasks with details such as title, description, due date, priority level, and status. 
 
