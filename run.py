@@ -60,7 +60,7 @@ def task_master():
         print("4. Delete Task")
         print("5. Exit")
 
-        choice = input("Enter your choice")
+        choice = input("Enter your choice: ")
 
         if choice == '1':
             title = input("Enter task title: ")
