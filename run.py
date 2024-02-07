@@ -39,3 +39,12 @@ def list_tasks():
     print("List of Tasks:")
     for i, task in enumerate(tasks):
         print(f"{i + 1}. Title: {task['title']}, Description: {task['description']}, Status: {task['status']}")
+
+def delete_task(index):
+    if index < 0 or index >= len(tasks):
+        print("Invalid task index.")
+        return
+
+    del tasks[index]
+    save_tasks()
+    print("Task deleted successfully.")
