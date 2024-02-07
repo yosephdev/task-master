@@ -48,3 +48,39 @@ def delete_task(index):
     del tasks[index]
     save_tasks()
     print("Task deleted successfully.")
+
+def task_master():
+    load_tasks()
+
+    while True:
+        print("\nTaskMaster - Task Management App")
+        print("1. Add Task")
+        print("2. Update Task")
+        print("3. List Tasks")
+        print("4. Delete Task")
+        print("5. Exit")
+
+        choice = input("Enter your choice")
+
+        if choice == '1':
+            title = input("Enter task title: ")
+            description = input("Enter task description: ")
+            add_task(title, description)
+        elif choice == '2':
+            list_tasks()
+            index = int(input("Enter the index of the task to update: ")) - 1
+            title = input("Enter new title (leave empty to keep unchanged): ")
+            description = input("Enter new description (leave empty to keep unchanged): ")
+            status = input("Enter new status (leave empty to keep unchanged): ")
+            update_task(index, title, description, status)
+        elif choice == '3':
+            list_tasks()
+        elif choice == '4':
+            list_tasks()
+            index = int(input("Enter the index of the task to delete: ")) - 1
+            delete_task(index)
+        elif choice == '5':
+            print("Exiting TaskMaster. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
