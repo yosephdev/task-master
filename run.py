@@ -97,32 +97,33 @@ def delete_task(index):
 def filter_tasks():
     print("\nTask Filtering")
     print("1. Filter by Priority")
-    print("1. Filter by Due Date")
-    print("1. Filter by Status")
-    choice = input("Enter your choice: ")
+    print("2. Filter by Due Date")
+    print("3. Filter by Status")
+    choice = input("Enter your choice: ")    
 
+    filtered_tasks = tasks
 
     if choice == "1":
-        filter_by_priority()
+        filter_by_priority(filtered_tasks)
     elif choice == "2":
-        filter_by_due_date()
+        filter_by_due_date(filtered_tasks)
     elif choice == "3":
-        filter_by_status()
+        filter_by_status(filtered_tasks)
     else:
         print("Invalid choice. Please enter a valid option.")
 
 
-def filter_by_priority():
+def filter_by_priority(filtered_tasks):
     if not filtered_tasks:
         print("No tasks matching the specified priority.")
 
 
-def filter_by_due_date():
+def filter_by_due_date(filtered_tasks):
     if not filtered_tasks:
         print("No tasks matching the specified due date.")
 
 
-def filter_by_status():
+def filter_by_status(filtered_tasks):
     if not filtered_tasks:
         print("No tasks matching the specified status.")
 
