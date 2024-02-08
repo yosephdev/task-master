@@ -95,7 +95,21 @@ def delete_task(index):
 
 
 def filter_tasks():
-    pass
+    print("\nTask Filtering")
+    print("1. Filter by Priority")
+    print("1. Filter by Due Date")
+    print("1. Filter by Status")
+    choice = input("Enter your choice: ")
+
+
+    if choice == "1":
+        filter_by_priority()
+    elif choice == "2":
+        filter_by_due_date()
+    elif choice == "3":
+        filter_by_status()
+    else:
+        print("Invalid choice. Please enter a valid option.")
 
 
 def task_master():
