@@ -62,11 +62,11 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 5. **Deleting Tasks:** Users can delete tasks from the task list, removing them permanently.
 
+6. **Task Filtering and Sorting:** Users can filter and sort tasks based on criteria such as priority, due date, and status.
+
 ### Planned Features
 
-1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks.
-
-2. **Task Filtering and Sorting:** Provide options for users to filter and sort tasks based on criteria such as priority, due date, and status. 
+1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks. 
 
 ## How to Use
 
