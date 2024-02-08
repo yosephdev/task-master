@@ -94,6 +94,10 @@ def delete_task(index):
     print("Task deleted successfully.")
 
 
+def filter_tasks():
+    pass
+
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
