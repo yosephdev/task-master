@@ -136,8 +136,14 @@ def filter_by_due_date(filtered_tasks):
 
 
 def filter_by_status(filtered_tasks):
+    status = input("Enter the status (e.g., Pending, In Progress, Completed): ")
+    filtered_tasks = [task for task in filtered_tasks if task.get('status') == status]
     if not filtered_tasks:
         print("No tasks matching the specified status.")
+    else:
+        print("Filtered Tasks:")
+        for i, task in enumerate(filtered_tasks):
+            print(f"{i + 1}. Title: {task['title']}, Status: {task['status']}")
 
 
 def task_master():
