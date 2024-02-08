@@ -104,7 +104,8 @@ def filter_tasks():
     filtered_tasks = tasks
 
     if choice == "1":
-        filter_by_priority(filtered_tasks)
+        priority = input("Enter priority level (High, Medium, Low): ")
+        filter_by_priority(priority)
     elif choice == "2":
         filter_by_due_date(filtered_tasks)
     elif choice == "3":
@@ -113,9 +114,14 @@ def filter_tasks():
         print("Invalid choice. Please enter a valid option.")
 
 
-def filter_by_priority(filtered_tasks):
+def filter_by_priority(priority):
+    filtered_tasks = [task for task in tasks if task.get('priority') == priority]
     if not filtered_tasks:
-        print("No tasks matching the specified priority.")
+        print(f"No tasks matching the specified priority level ({priority}).")
+    else:
+        print("Filtered Tasks:")
+        for i, task in enumerate(filtered_tasks):
+            print(f"{i + 1}. Title: {task['title']}, Priority: {task['priority']}")
 
 
 def filter_by_due_date(filtered_tasks):
