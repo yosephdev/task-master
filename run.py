@@ -112,12 +112,27 @@ def filter_tasks():
         print("Invalid choice. Please enter a valid option.")
 
 
+def filter_by_priority():
+    if not filtered_tasks:
+        print("No tasks matching the specified priority.")
+
+
+def filter_by_due_date():
+    if not filtered_tasks:
+        print("No tasks matching the specified due date.")
+
+
+def filter_by_status():
+    if not filtered_tasks:
+        print("No tasks matching the specified status.")
+
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
 
     while True:
-        print("\nWelcome to TaskMaster - Task Management App!")
+        print("\nTaskMaster - Task Management App!")
         print("1. Add Task")
         print("2. Update Task")
         print("3. List Tasks")
