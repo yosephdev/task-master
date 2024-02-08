@@ -125,8 +125,14 @@ def filter_by_priority(tasks, priority):
 
 
 def filter_by_due_date(filtered_tasks):
+    due_date = input("Enter the due date (YYYY-MM-DD): ")
+    filtered_tasks = [task for task in filtered_tasks if task.get('deadline') == due_date]
     if not filtered_tasks:
         print("No tasks matching the specified due date.")
+    else:
+        print("Filtered Tasks:")
+        for i, task in enumerate(filtered_tasks):
+            print(f"{i + 1}. Title: {task['title']}, Due Date: {task['deadline']}")
 
 
 def filter_by_status(filtered_tasks):
