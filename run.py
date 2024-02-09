@@ -162,6 +162,14 @@ def sort_tasks_by_priority():
     list_tasks()
 
 
+def sort_tasks_by_status():
+    global tasks
+    tasks.sort(key=lambda x: x.get('status', ''))
+
+    print("\nTask sorted by status.")     
+    list_tasks()
+
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
@@ -209,12 +217,15 @@ def task_master():
         elif choice == 6:
             print("1. Sort by Due Date")
             print("2. Sort by Priority")
+            print("3. Sort by Status")
             sort_choice = input("Enter your choice: ")
 
             if sort_choice == "1":
                 sort_tasks()
             elif sort_choice == "2":
                 sort_tasks_by_priority()
+            elif sort_choice == "3":
+                sort_tasks_by_status()
             else:
                 print("Invalid choice. Please enter a valid option.")
         elif choice == 7:
