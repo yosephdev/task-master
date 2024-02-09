@@ -202,10 +202,23 @@ def task_master():
         elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
-            title = input("Enter new title: ")
-            description = input("Enter new description: ")
-            status = input("Enter new status: ")
-            update_task(index, title, description, status)
+            print("1. Update Title")
+            print("2. Update Description")
+            print("3. Update Status")
+            update_choice = input("Enter your choice: ")
+
+            if update_choice == "1":
+                title = input("Enter new title: ")
+                update_task(index, title=title)
+            elif update_choice == "2":
+                description = input("Enter new description: ")
+                update_task(index, description=description)
+            elif update_choice == "3":
+                status = input("Enter new status: ")
+                update_task(index, status=status)
+            else:
+                print("Invalid choice. Please enter a valid option.")
+            
         elif choice == 3:
             list_tasks()
         elif choice == 4:
