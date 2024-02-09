@@ -154,6 +154,14 @@ def sort_tasks():
     list_tasks()  
 
 
+def sort_tasks_by_priority():
+    global tasks
+    tasks.sort(key=lambda x: x.get('priority', ''))
+
+    print("\nTask sorted by priority.")     
+    list_tasks()
+
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
@@ -199,7 +207,16 @@ def task_master():
         elif choice == 5:
             filter_tasks() 
         elif choice == 6:
-            sort_tasks()
+            print("1. Sort by Due Date")
+            print("2. Sort by Priority")
+            sort_choice = input("Enter your choice: ")
+
+            if sort_choice == "1":
+                sort_tasks()
+            elif sort_choice == "2":
+                sort_tasks_by_priority()
+            else:
+                print("Invalid choice. Please enter a valid option.")
         elif choice == 7:
             print("Exiting TaskMaster. Goodbye!")
             break
