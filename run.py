@@ -76,8 +76,11 @@ def list_tasks():
     print("List of Tasks:")
     for i, task in enumerate(tasks):
         deadline = task.get('deadline')
-        formatted_deadline = datetime.datetime.strptime(deadline, "%Y-%m-%d") \
+        formatted_deadline = (
+            datetime.datetime.strptime(deadline, "%Y-%m-%d")
             .strftime("%Y-%m-%d")
+        )
+
         if deadline
         else "None"
         print(f"{i + 1}. Title: {task['title']}, "
