@@ -2,6 +2,8 @@
 
 Task Master is a Python command-line application designed to help users organize and manage their tasks efficiently. It provides a user-friendly interface where users can add, update, list, and delete tasks. The application utilizes basic data structures such as lists and dictionaries to store task information and incorporates file I/O operations for persistent data storage.
 
+![Here is the live version of my project.](./docs/responsive-mockup.png)
+
 ## Table of Contents
 
 - [Task Master](#task-master)
