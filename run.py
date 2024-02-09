@@ -146,6 +146,14 @@ def filter_by_status(filtered_tasks):
             print(f"{i + 1}. Title: {task['title']}, Status: {task['status']}")
 
 
+def sort_tasks():
+    global tasks
+    tasks.sort(key=lambda x: x.get('deadline', ''))
+
+    print("\nTask sorted by due date.")     
+    list_tasks()  
+
+
 def task_master():
     print(ascii_art_header)
     load_tasks()
@@ -160,9 +168,11 @@ def task_master():
         print("6. Sort Tasks") 
         print("7. Exit")
 
+        choice = int(input("Enter your choice: "))
+
         try:
-            choice = int(input("Enter your choice: "))
-            if choice < 1 or choice > 5:
+            choice = int(choice)
+            if choice < 1 or choice > 7:
                 raise ValueError("Invalid choice.")
         except ValueError as e:
             print(f"Error: {e}")
