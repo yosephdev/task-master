@@ -81,12 +81,16 @@ def list_tasks():
             .strftime("%Y-%m-%d")
         )
 
-        if deadline
-        else "None"
-        print(f"{i + 1}. Title: {task['title']}, "
-              f"Description: {task['description']}, "
-              f"Status: {task['status']}, "
-              f"Deadline: {formatted_deadline}")
+        if deadline:
+            print(f"{i + 1}. Title: {task['title']}, "
+                  f"Description: {task['description']}, "
+                  f"Status: {task['status']}, "
+                  f"Deadline: {formatted_deadline}")
+        else:
+            print(f"{i + 1}. Title: {task['title']}, "
+                  f"Description: {task['description']}, "
+                  f"Status: {task['status']}, "
+                  "Deadline: None")
 
 
 def delete_task(index):
