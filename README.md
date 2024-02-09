@@ -64,10 +64,6 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 6. **Task Filtering and Sorting:** Users can filter and sort tasks based on criteria such as priority, due date, and status.
 
-### Planned Features
-
-1. **Task Tracking and Reminder:** Enhance task management by allowing users to track the progress of tasks, set deadlines, and receive reminders or notifications for upcoming deadlines or overdue tasks. 
-
 ## How to Use
 
 To use Task Master, follow these steps:
@@ -87,6 +83,8 @@ The codebase is documented with comments to explain the purpose and functionalit
 ## Future Features
 
 - **Task Creation and Organization:** Allow users to create tasks with details such as due date, priority level, and status. 
+
+- **Task Reminder:** Allow users to receive reminders or notifications for upcoming deadlines or overdue tasks. 
 
 - **Data Export and Import:** Allow users to export task data to common file formats. 
 
@@ -126,5 +124,5 @@ As of now, Task Master has not been deployed. However, the deployment process is
 ## Credits
 
 - [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) for project guidance and feedback.
-- Credits to Code institute for the deployment terminal
+- Credits to [Code Institute](https://www.codeinstitute.net) for the deployment terminal
 - Credits to the Python community for providing valuable resources for Python development.
