@@ -34,14 +34,13 @@ def save_tasks():
 
 def add_task(title, description, status='Pending'):
     deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
-    
     if deadline == "":
         deadline = None
     else:
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
-            print("Invalid deadline format. Please enter in YYYY-MM-DD format.")
+            print("Invalid deadline format. Please enter in YYYY-MM-DD.")
             return
 
     new_task = {
@@ -49,8 +48,8 @@ def add_task(title, description, status='Pending'):
         'description': description,
         'status': status,
         "deadline": deadline
-    }    
-    
+    }
+
     tasks.append(new_task)
     save_tasks()
     print("Tasks added successfully.")
@@ -77,7 +76,10 @@ def list_tasks():
     print("List of Tasks:")
     for i, task in enumerate(tasks):
         deadline = task.get('deadline')
-        formatted_deadline = datetime.datetime.strptime(deadline, "%Y-%m-%d").strftime("%Y-%m-%d") if deadline else "None"
+        formatted_deadline = datetime.datetime.strptime(deadline, "%Y-%m-%d")
+        \.strftime("%Y-%m-%d")
+        if deadline
+        else "None"
         print(f"{i + 1}. Title: {task['title']}, "
               f"Description: {task['description']}, "
               f"Status: {task['status']}, "
@@ -99,7 +101,7 @@ def filter_tasks():
     print("1. Filter by Priority")
     print("2. Filter by Due Date")
     print("3. Filter by Status")
-    choice = input("Enter your choice: ")    
+    choice = input("Enter your choice: ")
 
     filtered_tasks = tasks
 
@@ -115,29 +117,42 @@ def filter_tasks():
 
 
 def filter_by_priority(tasks, priority):
-    filtered_tasks = [task for task in tasks if task.get('priority') == priority]
+    filtered_tasks = [
+        task for task in tasks if task.get('priority') == priority
+    ]
     if not filtered_tasks:
         print(f"No tasks matching the specified priority level ({priority}).")
     else:
         print("Filtered Tasks:")
         for i, task in enumerate(filtered_tasks):
-            print(f"{i + 1}. Title: {task['title']}, Priority: {task['priority']}")
+            print(
+                f"{i + 1}. Title: {task['title']}, "
+                f"Priority: {task['priority']}"
+            )
 
 
 def filter_by_due_date(filtered_tasks):
     due_date = input("Enter the due date (YYYY-MM-DD): ")
-    filtered_tasks = [task for task in filtered_tasks if task.get('deadline') == due_date]
+    filtered_tasks = [
+        task for task in filtered_tasks if task.get("deadline") == due_date
+    ]
     if not filtered_tasks:
         print("No tasks matching the specified due date.")
     else:
         print("Filtered Tasks:")
         for i, task in enumerate(filtered_tasks):
-            print(f"{i + 1}. Title: {task['title']}, Due Date: {task['deadline']}")
+            print(
+                f"{i + 1}. Title: {task['title']}, "
+                f"Due Date: {task['deadline']}"
+            )
 
 
 def filter_by_status(filtered_tasks):
-    status = input("Enter the status (e.g., Pending, In Progress, Completed): ")
-    filtered_tasks = [task for task in filtered_tasks if task.get('status') == status]
+    status = input("Enter the status (e.g., Pending, In Completed): ")
+    filtered_tasks = [
+        task for task in filtered_tasks if task.get('status') == status
+        ]
+
     if not filtered_tasks:
         print("No tasks matching the specified status.")
     else:
@@ -150,15 +165,15 @@ def sort_tasks():
     global tasks
     tasks.sort(key=lambda x: x.get('deadline', ''))
 
-    print("\nTask sorted by due date.")     
-    list_tasks()  
+    print("\nTask sorted by due date.")
+    list_tasks()
 
 
 def sort_tasks_by_priority():
     global tasks
     tasks.sort(key=lambda x: x.get('priority', ''))
 
-    print("\nTask sorted by priority.")     
+    print("\nTask sorted by priority.")
     list_tasks()
 
 
@@ -166,7 +181,7 @@ def sort_tasks_by_status():
     global tasks
     tasks.sort(key=lambda x: x.get('status', ''))
 
-    print("\nTask sorted by status.")     
+    print("\nTask sorted by status.")
     list_tasks()
 
 
@@ -181,7 +196,7 @@ def task_master():
         print("3. List Tasks")
         print("4. Delete Task")
         print("5. Filter Tasks")
-        print("6. Sort Tasks") 
+        print("6. Sort Tasks")
         print("7. Exit")
 
         choice = int(input("Enter your choice: "))
@@ -218,7 +233,7 @@ def task_master():
                 update_task(index, status=status)
             else:
                 print("Invalid choice. Please enter a valid option.")
-            
+
         elif choice == 3:
             list_tasks()
         elif choice == 4:
@@ -226,7 +241,7 @@ def task_master():
             index = int(input("Enter the index of the task to delete: ")) - 1
             delete_task(index)
         elif choice == 5:
-            filter_tasks() 
+            filter_tasks()
         elif choice == 6:
             print("1. Sort by Due Date")
             print("2. Sort by Priority")
