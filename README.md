@@ -112,9 +112,9 @@ No errors were returned from the pep8ci.herokuapp.com
 
 ## Deployment
 
-As of now, Task Master has not been deployed. However, the deployment process is planned to be carried out using the Code Institute's mock terminal from Heroku. The steps for deployment will include:
+Task Master has been successfully deployed using Heroku. Follow these steps to deploy the app:
 
-1. Clone this repository.
+1. Clone this repository: https://github.com/yosephdev/TaskMaster.
 2. Create a new Heroku app.
 3. Set the config vars key PORT and value 8000.
 4. Set the build packs to Python and NodeJS in that order.
