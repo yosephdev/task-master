@@ -1,4 +1,6 @@
-import json
+import gspread
+from google.oauth2.service_account import Credentials
+
 import datetime
 
 
@@ -13,6 +15,11 @@ ascii_art_header = r"""
 
 """
 
+creds = Credentials.from_service_account_file('taskmaster.json')
+client = gspread.authorize(creds)
+
+sheet_title = input('Enter your name: ')
+new_sheet = client.create(sheet_title)
 
 tasks = []
 
