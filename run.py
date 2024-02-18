@@ -73,6 +73,31 @@ def update_task(index, title=None, description=None, status=None):
     new_sheet.update(f"A{index+2}", [list(task.values())])
     print("Task updated successfully.")
 
+def list_tasks():
+    print("List of Tasks:")
+    for i, row in enumerate(new_sheet.get_all_values()):
+        task = {
+            'title': row[0],
+            'description': row[1],
+            'status': row[2],
+            'deadline': row[3]
+        }
+        formatted_deadline = (
+            datetime.datetime.strptime(task['deadline'], "%Y-%m-%d")
+            .strftime("%Y-%m-%d")
+        )
+
+        if task['deadline']:
+            print(f"{i + 1}. Title: {task['title']}, "
+                  f"Description: {task['description']}, "
+                  f"Status: {task['status']}, "
+                  f"Deadline: {formatted_deadline}")
+        else:
+            print(f"{i + 1}. Title: {task['title']}, "
+                  f"Description: {task['description']}, "
+                  f"Status: {task['status']}, "
+                  "Deadline: None")
+
 def delete_task(index):
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
