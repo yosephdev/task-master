@@ -83,7 +83,8 @@ def list_tasks():
             'title': row[0],
             'description': row[1],
             'status': row[2],
-            'deadline': row[3]
+            'priority': row[3],  # Add priority to the task dictionary
+            'deadline': row[4]
         }
         formatted_deadline = (
             datetime.datetime.strptime(task['deadline'], "%Y-%m-%d")
@@ -94,11 +95,13 @@ def list_tasks():
             print(f"{i + 1}. Title: {task['title']}, "
                   f"Description: {task['description']}, "
                   f"Status: {task['status']}, "
+                  f"Priority: {task['priority']}, "  
                   f"Deadline: {formatted_deadline}")
         else:
             print(f"{i + 1}. Title: {task['title']}, "
                   f"Description: {task['description']}, "
                   f"Status: {task['status']}, "
+                  f"Priority: {task['priority']}, "  
                   "Deadline: None")
 
 def delete_task(index):
