@@ -13,12 +13,10 @@ Task Master is a Python command-line application designed to help users organize
     - [App Overview](#app-overview)
     - [Screenshots](#screenshots)
     - [Implemented Features](#implemented-features)
-    - [How to Use](#how-to-use)    
+    - [How to Use](#how-to-use)
   - [Core Logic for Managing Tasks](#core-logic-for-managing-tasks)
   - [Documentation](#documentation)
   - [Testing](#testing)
-  - [Bugs](#bugs)
-  - [Validator Testing](#validator-testing)
   - [Bugs](#bugs)
   - [Validator Testing](#validator-testing)
   - [Deployment](#deployment)
@@ -40,22 +38,22 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 ### Screenshots
 
-**Figure 1: Task Management Application - Main Menu**
+##### Figure 1: Task Management Application - Main Menu
 
 ![Main Menu](./docs/main-menu.png)
 
-**Figure 2: Task Management Application - Menu-Driven Interface Flowchart**
+##### Figure 2: Task Management Application - Menu-Driven Interface Flowchart
 
 ![Menu-Driven Interface](./docs/interface-flowchart.png)
 
-**Figure 3: Task Management Application - Add Task**
+##### Figure 3: Task Management Application - Add Task
 
 ![Add Task](./docs/add-task.png)
 
 ### Implemented Features
 
 1. **Task Deadlines:** Users can now add deadlines to tasks, allowing for better task tracking and time management.
-   
+
 2. **Adding Tasks:** Users can add new tasks to the task list, providing a title, description, and optional deadline.
 
 3. **Updating Tasks:** Users can update existing tasks, modifying their title, description, status, or deadline as needed.
@@ -76,19 +74,17 @@ To use Task Master, follow these steps:
 
 ## Core Logic for Managing Tasks
 
-The core logic for managing tasks is implemented within the Python script. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information. 
+The core logic for managing tasks is implemented within the Python script. This includes functions for adding tasks, updating task status, listing tasks, and deleting tasks. Basic data structures such as lists and dictionaries are used to store task information.
 
 ## Documentation
 
-The codebase is documented with comments to explain the purpose and functionality of each function or section. 
+The codebase is documented with comments to explain the purpose and functionality of each function or section.
 
 ## Future Features
 
-- **Task Creation and Organization:** Allow users to create tasks with details such as due date, priority level, and status. 
+- **Task Reminder:** Allow users to receive reminders or notifications for upcoming deadlines or overdue tasks.
 
-- **Task Reminder:** Allow users to receive reminders or notifications for upcoming deadlines or overdue tasks. 
-
-- **Data Export and Import:** Allow users to export task data to common file formats. 
+- **Data Export and Import:** Allow users to export task data to common file formats.
 
 - **User Authentication and Authorization:** Allow users to sign up, log in, and manage their accounts securely.
 
@@ -101,12 +97,12 @@ I have manually tested Task Master by performing the following steps:
 3. Tested different combinations of task data, including various titles, descriptions, and statuses, to ensure that tasks are added, updated, listed, and deleted accurately.
 4. Checked for each outcome of the task management operations to verify if the correct output is displayed. Ensured that tasks are manipulated as expected and that the application behaves correctly in all scenarios.
 5. Verified the functionality for multiple task management sessions to ensure that the tasks are persisted correctly between sessions and that the application maintains accurate task data.
-6. Tested the application in both local and simulated environments to ensure consistent behavior across different platforms and setups.
-
 
 ## Bugs
 
-No bugs were found during the development process. 
+- **Deadline Format Validation:** The application allows users to input any format for the deadline. It should enforce a strict format (YYYY-MM-DD) and reject any other format.
+  
+- **Deleting Last Task:** If the user deletes the last task, the application crashes because there's no row to delete. It should display a message informing the user that there are no tasks to delete.
 
 ## Validator Testing
 
@@ -116,7 +112,7 @@ No errors were returned from the pep8ci.herokuapp.com
 
 Task Master has been successfully deployed using Heroku. Follow these steps to deploy the app:
 
-1. Clone this repository: https://github.com/yosephdev/TaskMaster.
+1. Clone this repository: <https://github.com/yosephdev/TaskMaster>.
 2. Create a new Heroku app.
 3. Set the config vars key PORT and value 8000.
 4. Set the build packs to Python and NodeJS in that order.
