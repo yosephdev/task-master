@@ -179,27 +179,17 @@ def filter_by_status(filtered_tasks):
             print(f"{i + 1}. Title: {task['title']}, Status: {task['status']}")
 
 
-def sort_tasks():
+def sort_tasks(sort_criteria='priority'):
     global tasks
-    tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
+    if sort_criteria == 'priority':
+        tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
+    elif sort_criteria == 'status':
+        tasks.sort(key=lambda x: (x.get('status', ''), x.get('priority', '')))
+    else:
+        print("Invalid sort criteria. Sorting by priority.")
+        tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
 
-    print("\nTask sorted by priority and status.")
-    list_tasks()
-
-
-def sort_tasks_by_priority():
-    global tasks
-    tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
-
-    print("\nTask sorted by priority and status.")
-    list_tasks()
-
-
-def sort_tasks_by_status():
-    global tasks
-    tasks.sort(key=lambda x: (x.get('status', ''), x.get('priority', '')))
-
-    print("\nTask sorted by status and priority.")
+    print("\nTasks sorted by", sort_criteria)
     list_tasks()
 
 
