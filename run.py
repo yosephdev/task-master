@@ -103,9 +103,10 @@ def delete_task(index):
         print("Invalid task index.")
         return
 
-    del tasks[index]
-    save_tasks()
+    global new_sheet
+    new_sheet.delete_row(index + 2)
     print("Task deleted successfully.")
+
 
 
 def filter_tasks():
