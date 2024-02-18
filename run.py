@@ -51,9 +51,9 @@ def add_task(title, description, status='Pending'):
         "deadline": deadline
     }
 
-    tasks.append(new_task)
-    save_tasks()
-    print("Tasks added successfully.")
+    global new_sheet
+    new_sheet.append_row(list(new_task.values()))
+    print("Task added successfully.")
 
 
 def update_task(index, title=None, description=None, status=None):
