@@ -173,8 +173,8 @@ def filter_by_status(filtered_tasks):
 
 
 def sort_tasks():
-    global tasks
-    tasks.sort(key=lambda x: x.get('deadline', ''))
+    global new_sheet
+    new_sheet.sort((1, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
 
     print("\nTask sorted by due date.")
     list_tasks()
