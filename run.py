@@ -208,7 +208,7 @@ def task_master():
         print("6. Sort Tasks")
         print("7. Exit")
 
-        choice = int(input("Enter your choice: "))
+        choice = input("Enter your choice: ")
 
         try:
             choice = int(choice)
