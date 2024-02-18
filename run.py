@@ -20,8 +20,6 @@ def get_google_sheets_client():
     creds = Credentials.from_service_account_file('creds.json', scopes=scope)
     return gspread.authorize(creds)
 
-
-
 def load_tasks():
     global tasks
     global new_sheet
@@ -53,28 +51,24 @@ def add_task(title, description, priority='Medium', status='Pending'):
         'deadline': deadline
     }
 
-    global new_sheet    
-    empty_row = len(new_sheet.get_all_values()) + 1
-    new_sheet.update(f"A{empty_row}", [list(new_task.values())])
+    global new_sheet
+    new_sheet.append_row(list(new_task.values()))
     print("Task added successfully.")
 
 
 def update_task(index, title=None, description=None, status=None):
-    if index < 0 or index >= len(tasks):
-        print("Invalid task index.")
-        return
+    global client 
+    
+    if title:
+        new_sheet.update_cell(index + 1, 1, title)
+        print("Title updated successfully.")
+    if description:
+        new_sheet.update_cell(index + 1, 2, description)
+        print("Description updated successfully.")
+    if status:
+        new_sheet.update_cell(index + 1, 3, status)
+        print("Status updated successfully.")
 
-    task = tasks[index]
-    if title is not None:
-        task['title'] = title
-    if description is not None:
-        task['description'] = description
-    if status is not None:
-        task['status'] = status
-
-    global new_sheet
-    new_sheet.update(f"A{index+2}", [list(task.values())])
-    print("Task updated successfully.")
 
 def list_tasks():
     print("List of Tasks:")
@@ -107,7 +101,7 @@ def delete_task(index):
         return
 
     global new_sheet
-    new_sheet.delete_row(index + 2)
+    new_sheet.delete_rows(index + 2)
     print("Task deleted successfully.")
 
 def filter_tasks():
