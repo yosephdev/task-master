@@ -16,8 +16,10 @@ ascii_art_header = r"""
 """
 
 def get_google_sheets_client():
-    creds = Credentials.from_service_account_file('creds.json')
+    scope = ['https://www.googleapis.com/auth/spreadsheets']
+    creds = Credentials.from_service_account_file('creds.json', scopes=scope)
     return gspread.authorize(creds)
+
 
 
 def load_tasks():
