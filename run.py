@@ -24,9 +24,10 @@ def load_tasks():
     global tasks
     global new_sheet
 
-    client = get_google_sheets_client()
-    sheet_title = input('Enter your name: ')
-    new_sheet = client.create(sheet_title)
+    client = get_google_sheets_client()    
+    spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'    
+    sheet_title = 'Tasks'
+    new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()
     
 def save_tasks():
