@@ -16,7 +16,6 @@ ascii_art_header = r"""
 """
 
 
-
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
     creds = Credentials.from_service_account_file('creds.json', scopes=scope)
@@ -33,12 +32,6 @@ def load_tasks():
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()[1:]
 
-
-
-def save_tasks():
-    new_sheet.update('A1', [tasks])
-
-
 def add_task(title, description, status='Pending', priority=None):
     deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
     if deadline:
@@ -52,7 +45,7 @@ def add_task(title, description, status='Pending', priority=None):
         'title': title,
         'description': description,
         'status': status,
-        'priority': priority,  
+        'priority': priority,
         'deadline': deadline
     }
 
@@ -235,8 +228,9 @@ def task_master():
             title = input("Enter task title: ")
             description = input("Enter task description: ")
             priority = input("Enter task priority (High, Medium, Low): ")
-            status = input("Enter task status (Pending, In Progress, Completed): ")
-            add_task(title, description, priority, status)  
+            status = input(
+                "Enter task status (Pending, In Progress, Completed): ")
+            add_task(title, description, priority, status)
         elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
@@ -262,7 +256,7 @@ def task_master():
         elif choice == 4:
             list_tasks()
             index = int(input("Enter the index of the task to delete: ")) - 1
-            delete_task(index)  
+            delete_task(index)
         elif choice == 5:
             filter_tasks()
         elif choice == 6:
@@ -284,7 +278,6 @@ def task_master():
             break
         else:
             print("Invalid choice. Please select a valid option.")
-
 
 
 if __name__ == "__main__":
