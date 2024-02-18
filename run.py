@@ -234,7 +234,9 @@ def task_master():
         if choice == 1:
             title = input("Enter task title: ")
             description = input("Enter task description: ")
-            add_task("Title", "Description", "Status", "Priority")
+            priority = input("Enter task priority (High, Medium, Low): ")
+            status = input("Enter task status (Pending, In Progress, Completed): ")
+            add_task(title, description, priority, status)  
         elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
@@ -260,7 +262,7 @@ def task_master():
         elif choice == 4:
             list_tasks()
             index = int(input("Enter the index of the task to delete: ")) - 1
-            delete_task(index)
+            delete_task(index)  
         elif choice == 5:
             filter_tasks()
         elif choice == 6:
@@ -282,6 +284,7 @@ def task_master():
             break
         else:
             print("Invalid choice. Please select a valid option.")
+
 
 
 if __name__ == "__main__":
