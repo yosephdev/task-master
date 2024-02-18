@@ -53,8 +53,9 @@ def add_task(title, description, status='Pending'):
     }
 
     global new_sheet    
-    empty_row = len(new_sheet.get_all_values()) + 1
-    new_sheet.update(f"A{empty_row}", [list(new_task.values())])
+    empty_row = len(new_sheet.get_all_values()) + 1    
+    new_sheet.update(range_name=f"A{empty_row}", values=[list(new_task.values())])
+
     print("Task added successfully.")
 
 
