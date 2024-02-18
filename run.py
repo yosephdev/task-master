@@ -15,26 +15,29 @@ ascii_art_header = r"""
 
 """
 
+
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
     creds = Credentials.from_service_account_file('creds.json', scopes=scope)
     return gspread.authorize(creds)
 
+
 def load_tasks():
     global tasks
     global new_sheet
 
-    client = get_google_sheets_client()    
-    spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'    
+    client = get_google_sheets_client()
+    spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'
     sheet_title = 'Tasks'
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()
-    
+
+
 def save_tasks():
     new_sheet.update('A1', [tasks])
 
 
-def add_task(title, description, priority='Medium', status='Pending'):
+def add_task(title, description, status='Pending', priority=None):
     deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
     if deadline:
         try:
@@ -47,7 +50,7 @@ def add_task(title, description, priority='Medium', status='Pending'):
         'title': title,
         'description': description,
         'status': status,
-        'priority': priority,
+        'priority': priority,  # Include priority in the new_task dictionary
         'deadline': deadline
     }
 
@@ -57,8 +60,8 @@ def add_task(title, description, priority='Medium', status='Pending'):
 
 
 def update_task(index, title=None, description=None, status=None):
-    global client 
-    
+    global client
+
     if title:
         new_sheet.update_cell(index + 1, 1, title)
         print("Title updated successfully.")
@@ -73,7 +76,7 @@ def update_task(index, title=None, description=None, status=None):
 def list_tasks():
     print("List of Tasks:")
     rows = new_sheet.get_all_values()
-    for i, row in enumerate(rows[1:]):  
+    for i, row in enumerate(rows[1:]):
         task = {
             'title': row[0],
             'description': row[1],
@@ -82,11 +85,13 @@ def list_tasks():
         }
 
         formatted_deadline = row[3]
-        if formatted_deadline:
+        if formatted_deadline and formatted_deadline != "Medium":
             formatted_deadline = (
                 datetime.datetime.strptime(formatted_deadline, "%Y-%m-%d")
                 .strftime("%Y-%m-%d")
             )
+        elif formatted_deadline == "Medium":
+            formatted_deadline = "None"
         else:
             formatted_deadline = "None"
 
@@ -94,6 +99,7 @@ def list_tasks():
               f"Description: {task['description']}, "
               f"Status: {task['status']}, "
               f"Deadline: {formatted_deadline}")
+
 
 def delete_task(index):
     if index < 0 or index >= len(tasks):
@@ -103,6 +109,7 @@ def delete_task(index):
     global new_sheet
     new_sheet.delete_rows(index + 2)
     print("Task deleted successfully.")
+
 
 def filter_tasks():
     print("\nTask Filtering")
@@ -123,6 +130,7 @@ def filter_tasks():
         filter_by_status(filtered_tasks)
     else:
         print("Invalid choice. Please enter a valid option.")
+
 
 def filter_by_priority(tasks, priority):
     filtered_tasks = [
@@ -159,7 +167,7 @@ def filter_by_status(filtered_tasks):
     status = input("Enter the status (e.g., Pending, In Completed): ")
     filtered_tasks = [
         task for task in filtered_tasks if task.get('status') == status
-        ]
+    ]
 
     if not filtered_tasks:
         print("No tasks matching the specified status.")
@@ -170,26 +178,28 @@ def filter_by_status(filtered_tasks):
 
 
 def sort_tasks():
-    global new_sheet
-    new_sheet.sort((1, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
+    global tasks
+    tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
 
-    print("\nTask sorted by due date.")
+    print("\nTask sorted by priority and status.")
     list_tasks()
 
 
 def sort_tasks_by_priority():
-    global new_sheet
-    new_sheet.sort((3, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
+    global tasks
+    tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
 
-    print("\nTask sorted by priority.")
+    print("\nTask sorted by priority and status.")
     list_tasks()
+
 
 def sort_tasks_by_status():
-    global new_sheet
-    new_sheet.sort((4, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
+    global tasks
+    tasks.sort(key=lambda x: (x.get('status', ''), x.get('priority', '')))
 
-    print("\nTask sorted by status.")
+    print("\nTask sorted by status and priority.")
     list_tasks()
+
 
 def task_master():
     print(ascii_art_header)
@@ -219,7 +229,7 @@ def task_master():
         if choice == 1:
             title = input("Enter task title: ")
             description = input("Enter task description: ")
-            add_task(title, description)
+            add_task("Title", "Description", "Status", "Priority")
         elif choice == 2:
             list_tasks()
             index = int(input("Enter the index of the task to update: ")) - 1
