@@ -22,17 +22,15 @@ def get_google_sheets_client():
 
 def load_tasks():
     global tasks
+    global new_sheet
 
-    try:
-        with open('tasks.json', 'r') as file:
-            tasks = json.load(file)
-    except FileNotFoundError:
-        tasks = []
-
-
+    client = get_google_sheets_client()
+    sheet_title = input('Enter your name: ')
+    new_sheet = client.create(sheet_title)
+    tasks = new_sheet.get_all_records()
+    
 def save_tasks():
-    with open('tasks.json', 'w') as file:
-        json.dump(tasks, file)
+    new_sheet.update('A1', [tasks])
 
 
 def add_task(title, description, status='Pending'):
