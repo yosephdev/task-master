@@ -15,13 +15,9 @@ ascii_art_header = r"""
 
 """
 
-creds = Credentials.from_service_account_file('taskmaster.json')
-client = gspread.authorize(creds)
-
-sheet_title = input('Enter your name: ')
-new_sheet = client.create(sheet_title)
-
-tasks = []
+def get_google_sheets_client():
+    creds = Credentials.from_service_account_file('creds.json')
+    return gspread.authorize(creds)
 
 
 def load_tasks():
