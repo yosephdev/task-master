@@ -16,6 +16,7 @@ ascii_art_header = r"""
 """
 
 
+
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
     creds = Credentials.from_service_account_file('creds.json', scopes=scope)
@@ -50,7 +51,7 @@ def add_task(title, description, status='Pending', priority=None):
         'title': title,
         'description': description,
         'status': status,
-        'priority': priority,  # Include priority in the new_task dictionary
+        'priority': priority,  
         'deadline': deadline
     }
 
