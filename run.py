@@ -187,15 +187,12 @@ def sort_tasks_by_priority():
     print("\nTask sorted by priority.")
     list_tasks()
 
-
-
 def sort_tasks_by_status():
-    global tasks
-    tasks.sort(key=lambda x: x.get('status', ''))
+    global new_sheet
+    new_sheet.sort((4, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
 
     print("\nTask sorted by status.")
     list_tasks()
-
 
 def task_master():
     print(ascii_art_header)
