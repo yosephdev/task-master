@@ -107,8 +107,6 @@ def delete_task(index):
     new_sheet.delete_row(index + 2)
     print("Task deleted successfully.")
 
-
-
 def filter_tasks():
     print("\nTask Filtering")
     print("1. Filter by Priority")
@@ -116,18 +114,18 @@ def filter_tasks():
     print("3. Filter by Status")
     choice = input("Enter your choice: ")
 
-    filtered_tasks = tasks
+    global new_sheet
+    filtered_tasks = new_sheet.get_all_records()
 
     if choice == "1":
         priority = input("Enter priority level (High, Medium, Low): ")
-        filter_by_priority(tasks, priority)
+        filter_by_priority(filtered_tasks, priority)
     elif choice == "2":
         filter_by_due_date(filtered_tasks)
     elif choice == "3":
         filter_by_status(filtered_tasks)
     else:
         print("Invalid choice. Please enter a valid option.")
-
 
 def filter_by_priority(tasks, priority):
     filtered_tasks = [
