@@ -78,17 +78,19 @@ def update_task(index, title=None, description=None, status=None):
 
 def list_tasks():
     print("List of Tasks:")
-    for i, row in enumerate(new_sheet.get_all_values()):
+    rows = new_sheet.get_all_values()
+    for i, row in enumerate(rows[1:]):  
         task = {
             'title': row[0],
             'description': row[1],
             'status': row[2],
-            'deadline': row[3] if row[3] != 'Priority' else ''
+            'deadline': row[3]
         }
 
-        if task['deadline']:
+        formatted_deadline = row[3]
+        if formatted_deadline:
             formatted_deadline = (
-                datetime.datetime.strptime(task['deadline'], "%Y-%m-%d")
+                datetime.datetime.strptime(formatted_deadline, "%Y-%m-%d")
                 .strftime("%Y-%m-%d")
             )
         else:
