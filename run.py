@@ -181,11 +181,12 @@ def sort_tasks():
 
 
 def sort_tasks_by_priority():
-    global tasks
-    tasks.sort(key=lambda x: x.get('priority', ''))
+    global new_sheet
+    new_sheet.sort((3, 1), range='A2:D', dimension='ROWS', sort_order='ASCENDING')
 
     print("\nTask sorted by priority.")
     list_tasks()
+
 
 
 def sort_tasks_by_status():
