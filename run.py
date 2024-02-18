@@ -35,9 +35,7 @@ def save_tasks():
 
 def add_task(title, description, status='Pending'):
     deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
-    if deadline == "":
-        deadline = None
-    else:
+    if deadline:
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
@@ -51,8 +49,9 @@ def add_task(title, description, status='Pending'):
         "deadline": deadline
     }
 
-    global new_sheet
-    new_sheet.append_row(list(new_task.values()))
+    global new_sheet    
+    empty_row = len(new_sheet.get_all_values()) + 1
+    new_sheet.update(f"A{empty_row}", [list(new_task.values())])
     print("Task added successfully.")
 
 
