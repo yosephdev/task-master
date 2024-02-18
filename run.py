@@ -36,7 +36,7 @@ def save_tasks():
     new_sheet.update('A1', [tasks])
 
 
-def add_task(title, description, status='Pending'):
+def add_task(title, description, priority='Medium', status='Pending'):
     deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
     if deadline:
         try:
@@ -49,13 +49,13 @@ def add_task(title, description, status='Pending'):
         'title': title,
         'description': description,
         'status': status,
-        "deadline": deadline
+        'priority': priority,
+        'deadline': deadline
     }
 
     global new_sheet    
-    empty_row = len(new_sheet.get_all_values()) + 1    
-    new_sheet.update(range_name=f"A{empty_row}", values=[list(new_task.values())])
-
+    empty_row = len(new_sheet.get_all_values()) + 1
+    new_sheet.update(f"A{empty_row}", [list(new_task.values())])
     print("Task added successfully.")
 
 
