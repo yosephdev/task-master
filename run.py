@@ -83,26 +83,21 @@ def list_tasks():
             'title': row[0],
             'description': row[1],
             'status': row[2],
-            'priority': row[3],  # Add priority to the task dictionary
-            'deadline': row[4]
+            'deadline': row[3] if row[3] != 'Priority' else ''
         }
-        formatted_deadline = (
-            datetime.datetime.strptime(task['deadline'], "%Y-%m-%d")
-            .strftime("%Y-%m-%d")
-        )
 
         if task['deadline']:
-            print(f"{i + 1}. Title: {task['title']}, "
-                  f"Description: {task['description']}, "
-                  f"Status: {task['status']}, "
-                  f"Priority: {task['priority']}, "  
-                  f"Deadline: {formatted_deadline}")
+            formatted_deadline = (
+                datetime.datetime.strptime(task['deadline'], "%Y-%m-%d")
+                .strftime("%Y-%m-%d")
+            )
         else:
-            print(f"{i + 1}. Title: {task['title']}, "
-                  f"Description: {task['description']}, "
-                  f"Status: {task['status']}, "
-                  f"Priority: {task['priority']}, "  
-                  "Deadline: None")
+            formatted_deadline = "None"
+
+        print(f"{i + 1}. Title: {task['title']}, "
+              f"Description: {task['description']}, "
+              f"Status: {task['status']}, "
+              f"Deadline: {formatted_deadline}")
 
 def delete_task(index):
     if index < 0 or index >= len(tasks):
