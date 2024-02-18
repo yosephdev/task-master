@@ -57,6 +57,10 @@ def add_task(title, description, status='Pending', priority=None):
 def update_task(index, title=None, description=None, status=None):
     global client
 
+    if index < 0 or index >= len(tasks):
+        print("Invalid task index.")
+        return
+
     if title:
         new_sheet.update_cell(index + 2, 1, title)
         print("Title updated successfully.")
