@@ -69,30 +69,9 @@ def update_task(index, title=None, description=None, status=None):
     if status is not None:
         task['status'] = status
 
-    save_tasks()
+    global new_sheet
+    new_sheet.update(f"A{index+2}", [list(task.values())])
     print("Task updated successfully.")
-
-
-def list_tasks():
-    print("List of Tasks:")
-    for i, task in enumerate(tasks):
-        deadline = task.get('deadline')
-        formatted_deadline = (
-            datetime.datetime.strptime(deadline, "%Y-%m-%d")
-            .strftime("%Y-%m-%d")
-        )
-
-        if deadline:
-            print(f"{i + 1}. Title: {task['title']}, "
-                  f"Description: {task['description']}, "
-                  f"Status: {task['status']}, "
-                  f"Deadline: {formatted_deadline}")
-        else:
-            print(f"{i + 1}. Title: {task['title']}, "
-                  f"Description: {task['description']}, "
-                  f"Status: {task['status']}, "
-                  "Deadline: None")
-
 
 def delete_task(index):
     if index < 0 or index >= len(tasks):
