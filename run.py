@@ -31,7 +31,8 @@ def load_tasks():
     spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'
     sheet_title = 'Tasks'
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
-    tasks = new_sheet.get_all_records()
+    tasks = new_sheet.get_all_records()[1:]
+
 
 
 def save_tasks():
@@ -64,20 +65,20 @@ def update_task(index, title=None, description=None, status=None):
     global client
 
     if title:
-        new_sheet.update_cell(index + 1, 1, title)
+        new_sheet.update_cell(index + 2, 1, title)
         print("Title updated successfully.")
     if description:
-        new_sheet.update_cell(index + 1, 2, description)
+        new_sheet.update_cell(index + 2, 2, description)
         print("Description updated successfully.")
     if status:
-        new_sheet.update_cell(index + 1, 3, status)
+        new_sheet.update_cell(index + 2, 3, status)
         print("Status updated successfully.")
 
 
 def list_tasks():
     print("List of Tasks:")
     rows = new_sheet.get_all_values()
-    for i, row in enumerate(rows[1:]):
+    for i, row in enumerate(rows[1:], start=1):
         task = {
             'title': row[0],
             'description': row[1],
@@ -86,17 +87,20 @@ def list_tasks():
         }
 
         formatted_deadline = row[3]
-        if formatted_deadline and formatted_deadline != "Medium":
-            formatted_deadline = (
-                datetime.datetime.strptime(formatted_deadline, "%Y-%m-%d")
-                .strftime("%Y-%m-%d")
-            )
-        elif formatted_deadline == "Medium":
+        if formatted_deadline and formatted_deadline != "Priority":
+            try:
+                formatted_deadline = (
+                    datetime.datetime.strptime(formatted_deadline, "%Y-%m-%d")
+                    .strftime("%Y-%m-%d")
+                )
+            except ValueError:
+                formatted_deadline = "Invalid date format"
+        elif formatted_deadline == "Priority":
             formatted_deadline = "None"
         else:
             formatted_deadline = "None"
 
-        print(f"{i + 1}. Title: {task['title']}, "
+        print(f"{i}. Title: {task['title']}, "
               f"Description: {task['description']}, "
               f"Status: {task['status']}, "
               f"Deadline: {formatted_deadline}")
