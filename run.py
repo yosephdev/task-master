@@ -1,19 +1,8 @@
+import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
 import datetime
-
-
-ascii_art_header = r"""
-
-
-|_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __
-   | | / _` |/ __|| |/ /| |\/| | / _` |/ __|| __|/ _ \| '__|
-   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |
-   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|
-
-
-"""
 
 
 def get_google_sheets_client():
@@ -55,20 +44,20 @@ def add_task(title, description, status='Pending', priority=None):
 
 
 def update_task(index, title=None, description=None, status=None):
-    global client
+    global tasks
 
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
 
     if title:
-        new_sheet.update_cell(index + 2, 1, title)
+        tasks[index]['title'] = title
         print("Title updated successfully.")
     if description:
-        new_sheet.update_cell(index + 2, 2, description)
+        tasks[index]['description'] = description
         print("Description updated successfully.")
     if status:
-        new_sheet.update_cell(index + 2, 3, status)
+        tasks[index]['status'] = status
         print("Status updated successfully.")
 
 
@@ -192,8 +181,97 @@ def sort_tasks(sort_criteria='priority'):
     print("\nTasks sorted by", sort_criteria)
     list_tasks()
 
+def get_user_choice():
+    while True:
+        try:
+            choice = int(input("Enter your choice: "))
+            if 1 <= choice <= 7:
+                return choice
+            else:
+                print("Invalid choice. Please select a valid option.")
+        except ValueError:
+            print("Invalid choice. Please select a valid option.")
 
-def task_master():
+
+def handle_user_choice(choice):
+    if choice == 1:
+        add_task()
+    elif choice == 2:
+        handle_update_task()
+    elif choice == 3:
+        list_all_tasks()
+    elif choice == 4:
+        handle_delete_task()
+    elif choice == 5:
+        handle_filter_tasks()
+    elif choice == 6:
+        handle_sort_tasks()
+    elif choice == 7:
+        print("Exiting TaskMaster. Goodbye!")
+        exit()
+    else:
+        print("Invalid choice. Please select a valid option.")
+
+
+def list_all_tasks():
+    list_tasks()
+
+
+def handle_update_task():
+    list_tasks()
+    index = int(input("Enter the index of the task to update: ")) - 1
+        
+    print("Number of tasks:", len(tasks))
+    
+    if 0 <= index < len(tasks):
+        print("1. Update Title")
+        print("2. Update Description")
+        print("3. Update Status")
+        update_choice = input("Enter your choice: ")
+
+        if update_choice == "1":
+            title = input("Enter new title: ")
+            update_task(index, title=title)
+        elif update_choice == "2":
+            description = input("Enter new description: ")
+            update_task(index, description=description)
+        elif update_choice == "3":
+            status = input("Enter new status: ")
+            update_task(index, status=status)
+        else:
+            print("Invalid choice. Please enter a valid option.")
+    else:
+        print("Invalid task index.")
+
+
+
+def handle_delete_task():
+    list_tasks()
+    index = int(input("Enter the index of the task to delete: ")) - 1
+    delete_task(index)
+
+
+def handle_filter_tasks():
+    filter_tasks()
+
+
+def handle_sort_tasks():
+    print("1. Sort by Due Date")
+    print("2. Sort by Priority")
+    print("3. Sort by Status")
+    sort_choice = input("Enter your choice: ")
+
+    if sort_choice == "1":
+        sort_tasks('deadline')
+    elif sort_choice == "2":
+        sort_tasks('priority')
+    elif sort_choice == "3":
+        sort_tasks('status')
+    else:
+        print("Invalid choice. Please enter a valid option.")
+
+
+def main_menu():
     print(ascii_art_header)
     load_tasks()
 
@@ -207,73 +285,9 @@ def task_master():
         print("6. Sort Tasks")
         print("7. Exit")
 
-        choice = input("Enter your choice: ")
-
-        try:
-            choice = int(choice)
-            if choice < 1 or choice > 7:
-                raise ValueError("Invalid choice.")
-        except ValueError as e:
-            print(f"Error: {e}")
-            print("Please enter a valid integer between 1 and 7.")
-            continue
-
-        if choice == 1:
-            title = input("Enter task title: ")
-            description = input("Enter task description: ")
-            priority = input("Enter task priority (High, Medium, Low): ")
-            status = input(
-                "Enter task status (Pending, In Progress, Completed): ")
-            add_task(title, description, priority, status)
-        elif choice == 2:
-            list_tasks()
-            index = int(input("Enter the index of the task to update: ")) - 1
-            print("1. Update Title")
-            print("2. Update Description")
-            print("3. Update Status")
-            update_choice = input("Enter your choice: ")
-
-            if update_choice == "1":
-                title = input("Enter new title: ")
-                update_task(index, title=title)
-            elif update_choice == "2":
-                description = input("Enter new description: ")
-                update_task(index, description=description)
-            elif update_choice == "3":
-                status = input("Enter new status: ")
-                update_task(index, status=status)
-            else:
-                print("Invalid choice. Please enter a valid option.")
-
-        elif choice == 3:
-            list_tasks()
-        elif choice == 4:
-            list_tasks()
-            index = int(input("Enter the index of the task to delete: ")) - 1
-            delete_task(index)
-        elif choice == 5:
-            filter_tasks()
-        elif choice == 6:
-            print("1. Sort by Due Date")
-            print("2. Sort by Priority")
-            print("3. Sort by Status")
-            sort_choice = input("Enter your choice: ")
-
-            if sort_choice == "1":
-                sort_tasks()
-            elif sort_choice == "2":
-                sort_tasks_by_priority()
-            elif sort_choice == "3":
-                sort_tasks_by_status()
-            else:
-                print("Invalid choice. Please enter a valid option.")
-        elif choice == 7:
-            print("Exiting TaskMaster. Goodbye!")
-            break
-        else:
-            print("Invalid choice. Please select a valid option.")
+        choice = get_user_choice()
+        handle_user_choice(choice)
 
 
 if __name__ == "__main__":
-
-    task_master()
+    main_menu()
