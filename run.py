@@ -53,7 +53,7 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
     print("Task added successfully.")
 
 
-def update_task(index, title=None, description=None, status=None):
+def update_task(index, title=None, description=None, status=None, priority=None):
     global tasks
 
     if index < 0 or index >= len(tasks):
@@ -69,6 +69,11 @@ def update_task(index, title=None, description=None, status=None):
     if status:
         tasks[index]['status'] = status
         print("Status updated successfully.")
+        
+        new_sheet.update_cell(index + 2, 3, status) 
+    if priority:
+        tasks[index]['priority'] = priority
+        print("Priority updated successfully.")
 
 
 def list_tasks():
@@ -212,7 +217,32 @@ def handle_user_choice(choice):
         deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
         add_task(title, description, status, priority, deadline)
     elif choice == 2:
-        handle_update_task()
+        list_tasks()
+        index = int(input("Enter the index of the task to update: ")) - 1
+
+        if 0 <= index < len(tasks):
+            print("1. Update Title")
+            print("2. Update Description")
+            print("3. Update Status")
+            print("4. Update Priority")
+            update_choice = input("Enter your choice: ")
+
+            if update_choice == "1":
+                title = input("Enter new title: ")
+                update_task(index, title=title)
+            elif update_choice == "2":
+                description = input("Enter new description: ")
+                update_task(index, description=description)
+            elif update_choice == "3":
+                status = input("Enter new status: ")
+                update_task(index, status=status)
+            elif update_choice == "4":
+                priority = input("Enter new priority: ")
+                update_task(index, priority=priority)
+            else:
+                print("Invalid choice. Please enter a valid option.")
+        else:
+            print("Invalid task index.")
     elif choice == 3:
         list_all_tasks()
     elif choice == 4:
