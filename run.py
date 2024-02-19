@@ -4,6 +4,17 @@ from google.oauth2.service_account import Credentials
 
 import datetime
 
+ascii_art_header = r"""
+
+
+|_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __
+   | | / _` |/ __|| |/ /| |\/| | / _` |/ __|| __|/ _ \| '__|
+   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |
+   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|
+
+
+"""
+
 
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
@@ -21,8 +32,7 @@ def load_tasks():
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()[1:]
 
-def add_task(title, description, status='Pending', priority=None):
-    deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
+def add_task(title, description, status='Pending', priority=None, deadline=None):
     if deadline:
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
@@ -195,7 +205,12 @@ def get_user_choice():
 
 def handle_user_choice(choice):
     if choice == 1:
-        add_task()
+        title = input("Enter task title: ")
+        description = input("Enter task description: ")
+        status = input("Enter task status (e.g., Pending, In Progress, Completed): ")
+        priority = input("Enter task priority (e.g., High, Medium, Low): ")
+        deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
+        add_task(title, description, status, priority, deadline)
     elif choice == 2:
         handle_update_task()
     elif choice == 3:
