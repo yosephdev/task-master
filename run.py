@@ -52,9 +52,12 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
         'deadline': deadline
     }
 
-    global new_sheet
-    new_sheet.append_row(list(new_task.values()))
-    print("Task added successfully.")
+    try:
+        global new_sheet
+        new_sheet.append_row(list(new_task.values()))
+        print("Task added successfully.")
+    except Exception as e:
+        print(f"An error occurred while adding the task: {e}")
     
 def update_task(index, title=None, description=None, status=None, priority=None):
     global tasks
