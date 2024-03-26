@@ -41,7 +41,7 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
-            print("Invalid deadline format. Please enter in YYYY-MM-DD.")
+            print("Invalid deadline format. Please enter the deadline in YYYY-MM-DD format.")
             return
 
     new_task = {
