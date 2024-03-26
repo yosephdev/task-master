@@ -33,6 +33,10 @@ def load_tasks():
     tasks = new_sheet.get_all_records()[1:]
 
 def add_task(title, description, status='Pending', priority=None, deadline=None):
+    if not title.strip() or not description.strip():
+        print("Title and description cannot be blank. Please provide valid input.")
+        return
+
     if deadline:
         try:
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
@@ -51,7 +55,7 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
     global new_sheet
     new_sheet.append_row(list(new_task.values()))
     print("Task added successfully.")
-
+    
 
 def update_task(index, title=None, description=None, status=None, priority=None):
     global tasks
