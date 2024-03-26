@@ -39,6 +39,19 @@ def add_task(
         status='Pending',
         priority=None,
         deadline=None):
+    """
+    Add a new task to the task list.
+
+    Args:
+        title (str): The title of the task.
+        description (str): The description of the task.
+        status (str, optional): The status of the task (default is 'Pending').
+        priority (str, optional): The priority of the task (default is None).
+        deadline (str, optional): The deadline of the task in 'YYYY-MM-DD' format (default is None).
+
+    Returns:
+        None
+    """
     if not title.strip() or not description.strip():
         print("Title and description cannot be blank. Please provide valid input.")
         return
@@ -73,31 +86,50 @@ def update_task(
         description=None,
         status=None,
         priority=None):
+    """
+    Update an existing task with the given index.
+
+    Args:
+        index (int): The index of the task to update.
+        title (str, optional): The new title for the task (default is None).
+        description (str, optional): The new description for the task (default is None).
+        status (str, optional): The new status for the task (default is None).
+        priority (str, optional): The new priority for the task (default is None).
+
+    Returns:
+        None
+    """
     global tasks
 
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
 
-    try:
-        if title:
-            tasks[index]['title'] = title
-            print("Title updated successfully.")
-        if description:
-            tasks[index]['description'] = description
-            print("Description updated successfully.")
-        if status:
-            tasks[index]['status'] = status
-            print("Status updated successfully.")
-            new_sheet.update_cell(index + 2, 3, status)
-        if priority:
-            tasks[index]['priority'] = priority
-            print("Priority updated successfully.")
-    except Exception as e:
-        print(f"An error occurred: {e}. Failed to update task.")
+    if title:
+        tasks[index]['title'] = title
+        print("Title updated successfully.")
+    if description:
+        tasks[index]['description'] = description
+        print("Description updated successfully.")
+    if status:
+        tasks[index]['status'] = status
+        print("Status updated successfully.")
+
+        new_sheet.update_cell(index + 2, 3, status)
+    if priority:
+        tasks[index]['priority'] = priority
+        print("Priority updated successfully.")
 
 
 def list_tasks():
+    """
+    Lists all tasks stored in the task list.
+
+    Prints the title, description, status, and deadline of each task in the task list.
+
+    Returns:
+        None
+    """
     print("List of Tasks:")
     rows = new_sheet.get_all_values()
     for i, row in enumerate(rows[1:], start=1):
@@ -129,6 +161,15 @@ def list_tasks():
 
 
 def delete_task(index):
+    """
+    Deletes a task from the task list based on the given index.
+
+    Args:
+        index (int): The index of the task to delete.
+
+    Returns:
+        None
+    """
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
@@ -139,6 +180,15 @@ def delete_task(index):
 
 
 def filter_tasks():
+    """
+    Filters tasks based on user-defined criteria.
+
+    Provides options for filtering tasks by priority, due date, or status.
+    Prints the filtered tasks based on the user's selection.
+
+    Returns:
+        None
+    """
     print("\nTask Filtering")
     print("1. Filter by Priority")
     print("2. Filter by Due Date")
@@ -160,6 +210,16 @@ def filter_tasks():
 
 
 def filter_by_priority(tasks, priority):
+    """
+    Filters tasks based on priority level.
+
+    Args:
+        tasks (list): List of tasks to filter.
+        priority (str): Priority level to filter tasks (e.g., High, Medium, Low).
+
+    Returns:
+        None
+    """
     filtered_tasks = [
         task for task in tasks if task.get('priority') == priority
     ]
@@ -175,6 +235,15 @@ def filter_by_priority(tasks, priority):
 
 
 def filter_by_due_date(filtered_tasks):
+    """
+    Filters tasks based on the due date.
+
+    Args:
+        filtered_tasks (list): List of tasks to filter.
+
+    Returns:
+        None
+    """
     due_date = input("Enter the due date (YYYY-MM-DD): ")
     filtered_tasks = [
         task for task in filtered_tasks if task.get("deadline") == due_date
@@ -191,7 +260,17 @@ def filter_by_due_date(filtered_tasks):
 
 
 def filter_by_status(filtered_tasks):
-    status = input("Enter the status (e.g., Pending, In Completed): ")
+    """
+    Filters tasks based on the status.
+
+    Args:
+        filtered_tasks (list): List of tasks to filter.
+
+    Returns:
+        None
+    """
+    status = input(
+        "Enter the status (e.g., Pending, In Progress, Completed): ")
     filtered_tasks = [
         task for task in filtered_tasks if task.get('status') == status
     ]
@@ -205,6 +284,16 @@ def filter_by_status(filtered_tasks):
 
 
 def sort_tasks(sort_criteria='priority'):
+    """
+    Sorts tasks based on the specified criteria.
+
+    Args:
+        sort_criteria (str): Criteria to sort tasks (default is 'priority').
+            Possible values: 'priority', 'status'
+
+    Returns:
+        None
+    """
     global tasks
     if sort_criteria == 'priority':
         tasks.sort(key=lambda x: (x.get('priority', ''), x.get('status', '')))
@@ -231,6 +320,15 @@ def get_user_choice():
 
 
 def handle_user_choice(choice):
+    """
+    Handles user choice and performs corresponding actions.
+
+    Args:
+        choice (int): User's choice from the main menu.
+
+    Returns:
+        None
+    """
     if choice == 1:
         title = input("Enter task title: ")
         description = input("Enter task description: ")
