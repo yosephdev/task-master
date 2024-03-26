@@ -74,7 +74,10 @@ def update_task(index, title=None, description=None, status=None, priority=None)
         tasks[index]['status'] = status
         print("Status updated successfully.")
         
-        new_sheet.update_cell(index + 2, 3, status) 
+        try:
+            new_sheet.update_cell(index + 2, 3, status) 
+        except Exception as e:
+            print("Error updating status:", e)
     if priority:
         tasks[index]['priority'] = priority
         print("Priority updated successfully.")
