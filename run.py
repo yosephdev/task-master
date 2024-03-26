@@ -1,4 +1,3 @@
-import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -47,13 +46,13 @@ def add_task(
         description (str): The description of the task.
         status (str, optional): The status of the task (default is 'Pending').
         priority (str, optional): The priority of the task (default is None).
-        deadline (str, optional): The deadline of the task in 'YYYY-MM-DD' format (default is None).
+        deadline (str): The deadline of the task in 'YYYY-MM-DD' format.
 
     Returns:
         None
     """
     if not title.strip() or not description.strip():
-        print("Title and description cannot be blank. Please provide valid input.")
+        print("Title/description cannot be blank. Please provide valid input.")
         return
 
     if deadline:
@@ -61,7 +60,7 @@ def add_task(
             datetime.datetime.strptime(deadline, "%Y-%m-%d")
         except ValueError:
             print(
-                "Invalid deadline format. Please enter the deadline in YYYY-MM-DD format.")
+                "Invalid format. Please enter in YYYY-MM-DD format.")
             return
 
     new_task = {
@@ -92,9 +91,9 @@ def update_task(
     Args:
         index (int): The index of the task to update.
         title (str, optional): The new title for the task (default is None).
-        description (str, optional): The new description for the task (default is None).
+        description (str): The new description for the task (default is None).
         status (str, optional): The new status for the task (default is None).
-        priority (str, optional): The new priority for the task (default is None).
+        priority (str): The new priority for the task (default is None).
 
     Returns:
         None
@@ -125,7 +124,7 @@ def list_tasks():
     """
     Lists all tasks stored in the task list.
 
-    Prints the title, description, status, and deadline of each task in the task list.
+    Prints the title, description, status, deadline of each task in the list.
 
     Returns:
         None
@@ -215,7 +214,7 @@ def filter_by_priority(tasks, priority):
 
     Args:
         tasks (list): List of tasks to filter.
-        priority (str): Priority level to filter tasks (e.g., High, Medium, Low).
+        priority (str): Priority level to filter tasks (High, Medium, Low).
 
     Returns:
         None
