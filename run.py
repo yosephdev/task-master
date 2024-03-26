@@ -63,23 +63,22 @@ def update_task(index, title=None, description=None, status=None, priority=None)
         print("Invalid task index.")
         return
 
-    if title:
-        tasks[index]['title'] = title
-        print("Title updated successfully.")
-    if description:
-        tasks[index]['description'] = description
-        print("Description updated successfully.")
-    if status:
-        tasks[index]['status'] = status
-        print("Status updated successfully.")
-        
-        try:
+    try:
+        if title:
+            tasks[index]['title'] = title
+            print("Title updated successfully.")
+        if description:
+            tasks[index]['description'] = description
+            print("Description updated successfully.")
+        if status:
+            tasks[index]['status'] = status
+            print("Status updated successfully.")
             new_sheet.update_cell(index + 2, 3, status) 
-        except Exception as e:
-            print("Error updating status:", e)
-    if priority:
-        tasks[index]['priority'] = priority
-        print("Priority updated successfully.")
+        if priority:
+            tasks[index]['priority'] = priority
+            print("Priority updated successfully.")
+    except Exception as e:
+        print(f"An error occurred: {e}. Failed to update task.")
 
 
 def list_tasks():
