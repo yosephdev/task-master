@@ -205,13 +205,12 @@ def get_user_choice():
     while True:
         try:
             choice = int(input("Enter your choice: "))
-            if 1 <= choice <= 7:
+            if choice in range(1, 8):
                 return choice
             else:
                 print("Invalid choice. Please select a valid option.")
         except ValueError:
             print("Invalid choice. Please select a valid option.")
-
 
 def handle_user_choice(choice):
     if choice == 1:
