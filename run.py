@@ -220,7 +220,7 @@ def filter_by_priority(tasks, priority):
         None
     """
     valid_priorities = ['High', 'Medium', 'Low']
-    
+
     if priority not in valid_priorities:
         print("Invalid priority level. Please choose from: High, Medium, Low.")
         return
