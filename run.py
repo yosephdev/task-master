@@ -28,6 +28,7 @@ def load_tasks(client, spreadsheet_id):
     tasks = new_sheet.get_all_records()[1:]
     return tasks, new_sheet
 
+spreadsheet_id = os.getenv('SPREADSHEET_ID')
 client = get_google_sheets_client()
 tasks, new_sheet = load_tasks(client, spreadsheet_id)
 
