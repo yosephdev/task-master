@@ -1,6 +1,7 @@
+import os
+import json
 import gspread
 from google.oauth2.service_account import Credentials
-from config import spreadsheet_id
 import datetime
 
 ascii_art_header = r"""
@@ -17,7 +18,8 @@ ascii_art_header = r"""
 
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
-    creds = Credentials.from_service_account_file('creds.json', scopes=scope)
+    creds_info = json.loads(os.getenv('GOOGLE_CREDS'))
+    creds = Credentials.from_service_account_info(creds_info, scopes=scope)
     return gspread.authorize(creds)
 
 def load_tasks(client, spreadsheet_id):
