@@ -1,6 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
-
+from config import spreadsheet_id
 import datetime
 
 ascii_art_header = r"""
@@ -20,17 +20,14 @@ def get_google_sheets_client():
     creds = Credentials.from_service_account_file('creds.json', scopes=scope)
     return gspread.authorize(creds)
 
-
-def load_tasks():
-    global tasks
-    global new_sheet
-
-    client = get_google_sheets_client()
-    spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'
+def load_tasks(client, spreadsheet_id):
     sheet_title = 'Tasks'
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()[1:]
+    return tasks, new_sheet
 
+client = get_google_sheets_client()
+tasks, new_sheet = load_tasks(client, spreadsheet_id)
 
 def add_task(
         title,
