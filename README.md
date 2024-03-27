@@ -78,15 +78,19 @@ The core logic for managing tasks is implemented within the Python script. This 
 
 ## Documentation
 
+### Libraries Used:
+
+The following external Python libraries are used in the project:
+
+- **gspread**: Used for interacting with Google Sheets to store and manage task data.
+- **google-auth**: Used for handling authentication with Google Sheets API.
+
+### Rationale:
+
+- **gspread**: Google Sheets provides a convenient way to store task data in a cloud-based spreadsheet, allowing for easy access and collaboration between users.
+- **google-auth**: Google authentication ensures secure access to the Google Sheets API, protecting user data and privacy.
+
 The codebase is documented with comments to explain the purpose and functionality of each function or section.
-
-## Future Features
-
-- **Task Reminder:** Allow users to receive reminders or notifications for upcoming deadlines or overdue tasks.
-
-- **Data Export and Import:** Allow users to export task data to common file formats.
-
-- **User Authentication and Authorization:** Allow users to sign up, log in, and manage their accounts securely.
 
 ## Testing
 
@@ -100,9 +104,7 @@ I have manually tested Task Master by performing the following steps:
 
 ## Bugs
 
-- **Deadline Format Validation:** The application allows users to input any format for the deadline. It should enforce a strict format (YYYY-MM-DD) and reject any other format.
-  
-- **Deleting Last Task:** If the user deletes the last task, the application crashes because there's no row to delete. It should display a message informing the user that there are no tasks to delete.
+The known issues have been resolved.
 
 ## Validator Testing
 
