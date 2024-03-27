@@ -219,6 +219,12 @@ def filter_by_priority(tasks, priority):
     Returns:
         None
     """
+    valid_priorities = ['High', 'Medium', 'Low']
+    
+    if priority not in valid_priorities:
+        print("Invalid priority level. Please choose from: High, Medium, Low.")
+        return
+
     filtered_tasks = [
         task for task in tasks if task.get('priority') == priority
     ]
