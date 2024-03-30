@@ -26,7 +26,6 @@ Pygments==2.11.2
 PyGObject==3.42.1
 PyJWT==2.3.0
 pyparsing==2.4.7
-python-apt==2.4.0+ubuntu3
 python-dotenv==1.0.1
 PyYAML==5.4.1
 requests==2.31.0
