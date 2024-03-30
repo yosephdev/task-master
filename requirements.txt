@@ -17,7 +17,7 @@ launchpadlib==1.10.16
 lazr.restfulclient==0.14.4
 lazr.uri==1.0.6
 more-itertools==8.10.0
-oauthlib==3.2.0
+oauthlib==3.2.2
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycodestyle==2.11.1
