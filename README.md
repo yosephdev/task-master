@@ -104,17 +104,17 @@ I have manually tested Task Master by performing the following steps:
 
 ## Bugs
 
-The known issues have been resolved.
+All known issues have been resolved, ensuring a smooth user experience.
 
 ## Validator Testing
 
-No errors were returned from the pep8ci.herokuapp.com
+No errors were returned from the pep8ci.herokuapp.com.
 
 ## Deployment
 
 Task Master has been successfully deployed using Heroku. Follow these steps to deploy the app:
 
-1. Clone this repository: <https://github.com/yosephdev/TaskMaster>.
+1. Clone this repository: [Task Master Repository](https://github.com/yosephdev/TaskMaster).
 2. Create a new Heroku app.
 3. Set the config vars key PORT and value 8000.
 4. Set the build packs to Python and NodeJS in that order.
@@ -124,5 +124,5 @@ Task Master has been successfully deployed using Heroku. Follow these steps to d
 ## Credits
 
 - [Mitko Bachvarov](https://www.linkedin.com/in/mitko-bachvarov-40b50776/) for project guidance and feedback.
-- Credits to [Code Institute](https://www.codeinstitute.net) for the deployment terminal
+- Credits to [Code Institute](https://www.codeinstitute.net) for the deployment terminal.
 - Credits to the Python community for providing valuable resources for Python development.
