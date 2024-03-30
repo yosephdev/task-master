@@ -161,36 +161,31 @@ def update_task(
     if title is not None:
         tasks[index]['title'] = title
         print("Title updated successfully.")
-        if sheet:
-            # Update the corresponding cell in the sheet
+        if sheet:            
             sheet.update_cell(index + 2, 1, title)
 
     if description is not None:
         tasks[index]['description'] = description
         print("Description updated successfully.")
-        if sheet:
-            # Update the corresponding cell in the sheet
+        if sheet:            
             sheet.update_cell(index + 2, 2, description)
 
     if status is not None:
         tasks[index]['status'] = status
         print("Status updated successfully.")
-        if sheet:
-            # Update the corresponding cell in the sheet
+        if sheet:            
             sheet.update_cell(index + 2, 3, status)
 
     if priority is not None:
         tasks[index]['priority'] = priority
         print("Priority updated successfully.")
-        if sheet:
-            # Update the corresponding cell in the sheet
+        if sheet:           
             sheet.update_cell(index + 2, 4, priority)
 
     if deadline is not None:
         tasks[index]['deadline'] = deadline
         print("Deadline updated successfully.")
-        if sheet:
-            # Update the corresponding cell in the sheet
+        if sheet:            
             sheet.update_cell(index + 2, 5, deadline)
 
 
@@ -306,12 +301,11 @@ def filter_by_priority(sheet, priority):
     Returns:
         None
     """
-    # Convert priority to lower case for case-insensitive comparison
     priority = priority.lower()
 
     rows = sheet.get_all_values()
     filtered_tasks = [task for task in rows[1:] if task[3].strip(
-    ).lower() == priority]  # Column index 3 corresponds to Priority
+    ).lower() == priority]  
     if not filtered_tasks:
         print(f"No tasks matching the specified priority level ({priority}).")
     else:
@@ -333,12 +327,10 @@ def filter_by_due_date(sheet, due_date):
 
     Returns:
         None
-    """
-    # Remove whitespace from due_date for accurate comparison
+    """   
     due_date = due_date.strip()
 
-    rows = sheet.get_all_values()
-    # Column index 4 corresponds to Deadline
+    rows = sheet.get_all_values()   
     filtered_tasks = [task for task in rows[1:] if task[4].strip() == due_date]
     if not filtered_tasks:
         print(f"No tasks matching the specified due date ({due_date}).")
@@ -362,12 +354,11 @@ def filter_by_status(sheet, status):
     Returns:
         None
     """
-    # Convert status to lower case for case-insensitive comparison
     status = status.lower()
 
     rows = sheet.get_all_values()
     filtered_tasks = [task for task in rows[1:] if task[2].strip(
-    ).lower() == status]  # Column index 2 corresponds to Status
+    ).lower() == status]  
     if not filtered_tasks:
         print(f"No tasks matching the specified status ({status}).")
     else:
