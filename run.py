@@ -1,16 +1,20 @@
 import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-
 import datetime
+import re
+
 
 ascii_art_header = r"""
 
 
-|_   _|__ _  ___ | | __|  \/  |  __ _  ___ | |_  ___  _ __
-   | | / _` |/ __|| |/ /| |\/| | / _` |/ __|| __|/ _ \| '__|
-   | || (_| |\__ \|   < | |  | || (_| |\__ \| |_|  __/| |
-   |_| \__,_||___/|_|\_\|_|  |_| \__,_||___/ \__|\___||_|
+████████  █████  ███████ ██   ██     ███    ███  █████  ███████ ████████ ███████ ██████
+   ██    ██   ██ ██      ██  ██      ████  ████ ██   ██ ██         ██    ██      ██   ██ 
+   ██    ███████ ███████ █████       ██ ████ ██ ███████ ███████    ██    █████   ██████  
+   ██    ██   ██      ██ ██  ██      ██  ██  ██ ██   ██      ██    ██    ██      ██   ██ 
+   ██    ██   ██ ███████ ██   ██     ██      ██ ██   ██ ███████    ██    ███████ ██   ██ 
+                                                                                              
+
 
 
 """
@@ -32,11 +36,16 @@ def load_tasks():
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
     tasks = new_sheet.get_all_records()[1:]
 
-def add_task(title, description, status='Pending', priority=None, deadline=None):
+
+def add_task(
+        title,
+        description,
+        status='Pending',
+        priority=None,
+        deadline=None):
     if deadline:
-        try:
-            datetime.datetime.strptime(deadline, "%Y-%m-%d")
-        except ValueError:
+        # Validate deadline format using regex
+        if not re.match(r"^\d{4}-\d{2}-\d{2}$", deadline):
             print("Invalid deadline format. Please enter in YYYY-MM-DD.")
             return
 
@@ -53,7 +62,12 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
     print("Task added successfully.")
 
 
-def update_task(index, title=None, description=None, status=None, priority=None):
+def update_task(
+        index,
+        title=None,
+        description=None,
+        status=None,
+        priority=None):
     global tasks
 
     if index < 0 or index >= len(tasks):
@@ -69,8 +83,8 @@ def update_task(index, title=None, description=None, status=None, priority=None)
     if status:
         tasks[index]['status'] = status
         print("Status updated successfully.")
-        
-        new_sheet.update_cell(index + 2, 3, status) 
+
+        new_sheet.update_cell(index + 2, 3, status)
     if priority:
         tasks[index]['priority'] = priority
         print("Priority updated successfully.")
@@ -196,6 +210,7 @@ def sort_tasks(sort_criteria='priority'):
     print("\nTasks sorted by", sort_criteria)
     list_tasks()
 
+
 def get_user_choice():
     while True:
         try:
@@ -212,7 +227,8 @@ def handle_user_choice(choice):
     if choice == 1:
         title = input("Enter task title: ")
         description = input("Enter task description: ")
-        status = input("Enter task status (e.g., Pending, In Progress, Completed): ")
+        status = input(
+            "Enter task status (e.g., Pending, In Progress, Completed): ")
         priority = input("Enter task priority (e.g., High, Medium, Low): ")
         deadline = input("Enter task deadline (YYYY-MM-DD) or leave empty: ")
         add_task(title, description, status, priority, deadline)
@@ -265,9 +281,9 @@ def list_all_tasks():
 def handle_update_task():
     list_tasks()
     index = int(input("Enter the index of the task to update: ")) - 1
-        
+
     print("Number of tasks:", len(tasks))
-    
+
     if 0 <= index < len(tasks):
         print("1. Update Title")
         print("2. Update Description")
@@ -287,7 +303,6 @@ def handle_update_task():
             print("Invalid choice. Please enter a valid option.")
     else:
         print("Invalid task index.")
-
 
 
 def handle_delete_task():
