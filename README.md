@@ -38,7 +38,7 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 ### Screenshots
 
-##### Figure 1: Task Management Application - Main Menu
+#### Figure 1: Task Management Application - Main Menu
 
 ![Main Menu](./docs/main-menu.png)
 
@@ -64,6 +64,24 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 
 6. **Task Filtering and Sorting:** Users can filter and sort tasks based on criteria such as priority, due date, and status.
 
+## Libraries Used
+
+Task Master makes use of the following Python libraries to enhance its functionality:
+
+- **os**: Utilized for handling file I/O operations, allowing Task Master to store and retrieve task data from local storage.
+  
+- **json**: Employed for serializing and deserializing task data to and from JSON format, enabling persistent storage of tasks in a structured manner.
+
+- **datetime**: Used for handling date and time-related operations, particularly for managing task deadlines effectively.
+
+- **gspread**: Integrated for interacting with Google Sheets, facilitating seamless integration with online spreadsheets for task management.
+
+- **google.oauth2.service_account**: Used in conjunction with gspread for authentication and authorization when accessing Google Sheets.
+
+- **re**: Employed for regular expression-based validation, ensuring data integrity and format adherence in certain input fields.
+
+These libraries were selected for their compatibility with Python and their ability to streamline essential functionalities required for task management in Task Master.
+
 ## How to Use
 
 To use Task Master, follow these steps:
@@ -79,14 +97,6 @@ The core logic for managing tasks is implemented within the Python script. This 
 ## Documentation
 
 The codebase is documented with comments to explain the purpose and functionality of each function or section.
-
-## Future Features
-
-- **Task Reminder:** Allow users to receive reminders or notifications for upcoming deadlines or overdue tasks.
-
-- **Data Export and Import:** Allow users to export task data to common file formats.
-
-- **User Authentication and Authorization:** Allow users to sign up, log in, and manage their accounts securely.
 
 ## Testing
 
