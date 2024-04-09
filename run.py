@@ -7,10 +7,9 @@ import re
 
 
 ascii_art_header = r"""
-___                         
- | _. _|  |\/| _. __|_ _ ._ 
- |(_|_>|< |  |(_|_> |_(/_|  
-                            
+___
+ | _. _|  |\/| _. __|_ _ ._
+ |(_|_>|< |  |(_|_> |_(/_|
 
 """
 
@@ -42,7 +41,8 @@ def load_tasks():
         })
 
 
-def add_task(title, description, status='Pending', priority=None, deadline=None):
+def add_task(title, description, status='Pending', priority=None,
+             deadline=None):
     if deadline:
         if not re.match(r"^\d{4}-\d{2}-\d{2}$", deadline):
             print("Invalid deadline format. Please enter in YYYY-MM-DD.")
@@ -62,7 +62,8 @@ def add_task(title, description, status='Pending', priority=None, deadline=None)
     print("Task added successfully.")
 
 
-def update_task(index, title=None, description=None, status=None, priority=None, deadline=None):
+def update_task(index, title=None, description=None, status=None,
+                priority=None, deadline=None):
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
@@ -97,8 +98,11 @@ def list_tasks():
     print("Number of tasks:", len(tasks))
     print("List of Tasks:")
     for i, task in enumerate(tasks):
-        print(f"{i + 1}. Title: {task['title']}, Description: {task['description']}, Status: "
-              f"{task['status']}, Priority: {task['priority']}, Deadline: {task['deadline']}")
+        print(f"{i + 1}. Title: {task['title']}, "
+              f"Description: {task['description']}, "
+              f"Status: {task['status']}, "
+              f"Priority: {task['priority']}, "
+              f"Deadline: {task['deadline']}")
 
 
 def delete_task(index):
@@ -141,8 +145,8 @@ def filter_by_priority(tasks, priority):
     else:
         print("Filtered Tasks:")
         for i, task in enumerate(filtered_tasks):
-            print(f"{i + 1}. Title: {task['title']}, Priority: {task['priority']}")
-
+            print(f"{i + 1}. Title: {task['title']}, "
+                  f"Priority: {task['priority']}")
 
 
 def filter_by_due_date(tasks):
@@ -229,7 +233,7 @@ def handle_user_choice(choice):
                 update_task(index, description=description)
             elif update_choice == "3":
                 status = input(
-                    "Enter new status (e.g., Pending, In Progress, Completed): ")
+                    "Enter new status (e.g., Pending, Completed): ")
                 update_task(index, status=status)
             elif update_choice == "4":
                 priority = input("Enter new priority (High, Medium, Low): ")
