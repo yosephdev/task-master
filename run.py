@@ -1,29 +1,25 @@
+import os
+import json
 import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-import datetime
 import re
 
 
 ascii_art_header = r"""
-
-
 ████████  █████  ███████ ██   ██     ███    ███  █████  ███████ ████████ ███████ ██████
    ██    ██   ██ ██      ██  ██      ████  ████ ██   ██ ██         ██    ██      ██   ██ 
    ██    ███████ ███████ █████       ██ ████ ██ ███████ ███████    ██    █████   ██████  
    ██    ██   ██      ██ ██  ██      ██  ██  ██ ██   ██      ██    ██    ██      ██   ██ 
    ██    ██   ██ ███████ ██   ██     ██      ██ ██   ██ ███████    ██    ███████ ██   ██ 
                                                                                               
-
-
-
 """
 
 
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
-    creds = Credentials.from_service_account_file('creds.json', scopes=scope)
-    return gspread.authorize(creds)
+    creds = json.loads(os.environ.get('CREDS_JSON'))
+    return gspread.service_account_from_dict(creds)
 
 
 def load_tasks():
@@ -31,20 +27,24 @@ def load_tasks():
     global new_sheet
 
     client = get_google_sheets_client()
-    spreadsheet_id = '1PM_ACIIU43m6-EZ6sq2tG_m6t0YRe7MQaOeVikFu4YI'
+    spreadsheet_id = os.environ.get('SPREADSHEET_ID')
     sheet_title = 'Tasks'
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
-    tasks = new_sheet.get_all_records()[1:]
+    tasks_data = new_sheet.get_all_records()
+
+    tasks.clear()
+    for task in tasks_data:
+        tasks.append({
+            'title': task['Topic '],
+            'description': task['Description '],
+            'status': task['Status'],
+            'priority': task['Priority'],
+            'deadline': task[' Deadline']
+        })
 
 
-def add_task(
-        title,
-        description,
-        status='Pending',
-        priority=None,
-        deadline=None):
+def add_task(title, description, status='Pending', priority=None, deadline=None):
     if deadline:
-        # Validate deadline format using regex
         if not re.match(r"^\d{4}-\d{2}-\d{2}$", deadline):
             print("Invalid deadline format. Please enter in YYYY-MM-DD.")
             return
@@ -59,66 +59,47 @@ def add_task(
 
     global new_sheet
     new_sheet.append_row(list(new_task.values()))
+    tasks.append(new_task)
     print("Task added successfully.")
 
 
-def update_task(
-        index,
-        title=None,
-        description=None,
-        status=None,
-        priority=None):
-    global tasks
-
+def update_task(index, title=None, description=None, status=None, priority=None, deadline=None):
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
 
-    if title:
-        tasks[index]['title'] = title
-        print("Title updated successfully.")
-    if description:
-        tasks[index]['description'] = description
-        print("Description updated successfully.")
-    if status:
-        tasks[index]['status'] = status
-        print("Status updated successfully.")
+    sheet_index = index + 2
 
-        new_sheet.update_cell(index + 2, 3, status)
-    if priority:
+    if title is not None:
+        tasks[index]['title'] = title
+        new_sheet.update_cell(sheet_index, 1, title)
+    if description is not None:
+        tasks[index]['description'] = description
+        new_sheet.update_cell(sheet_index, 2, description)
+    if status is not None:
+        tasks[index]['status'] = status
+        new_sheet.update_cell(sheet_index, 3, status)
+    if priority is not None:
         tasks[index]['priority'] = priority
-        print("Priority updated successfully.")
+        new_sheet.update_cell(sheet_index, 4, priority)
+    if deadline is not None:
+        try:
+            datetime.datetime.strptime(deadline, "%Y-%m-%d")
+            tasks[index]['deadline'] = deadline
+            new_sheet.update_cell(sheet_index, 5, deadline)
+        except ValueError:
+            print("Invalid deadline format. Please enter in YYYY-MM-DD.")
+
+    print("Task updated successfully.")
 
 
 def list_tasks():
+    global tasks
+    print("Number of tasks:", len(tasks))
     print("List of Tasks:")
-    rows = new_sheet.get_all_values()
-    for i, row in enumerate(rows[1:], start=1):
-        task = {
-            'title': row[0],
-            'description': row[1],
-            'status': row[2],
-            'deadline': row[3]
-        }
-
-        formatted_deadline = row[3]
-        if formatted_deadline and formatted_deadline != "Priority":
-            try:
-                formatted_deadline = (
-                    datetime.datetime.strptime(formatted_deadline, "%Y-%m-%d")
-                    .strftime("%Y-%m-%d")
-                )
-            except ValueError:
-                formatted_deadline = "Invalid date format"
-        elif formatted_deadline == "Priority":
-            formatted_deadline = "None"
-        else:
-            formatted_deadline = "None"
-
-        print(f"{i}. Title: {task['title']}, "
-              f"Description: {task['description']}, "
-              f"Status: {task['status']}, "
-              f"Deadline: {formatted_deadline}")
+    for i, task in enumerate(tasks):
+        print(f"{i + 1}. Title: {task['title']}, Description: {task['description']}, Status: "
+              f"{task['status']}, Priority: {task['priority']}, Deadline: {task['deadline']}")
 
 
 def delete_task(index):
@@ -128,6 +109,7 @@ def delete_task(index):
 
     global new_sheet
     new_sheet.delete_rows(index + 2)
+    tasks.pop(index)
     print("Task deleted successfully.")
 
 
@@ -138,40 +120,36 @@ def filter_tasks():
     print("3. Filter by Status")
     choice = input("Enter your choice: ")
 
-    global new_sheet
-    filtered_tasks = new_sheet.get_all_records()
+    global tasks
 
     if choice == "1":
         priority = input("Enter priority level (High, Medium, Low): ")
-        filter_by_priority(filtered_tasks, priority)
+        filter_by_priority(tasks, priority)
     elif choice == "2":
-        filter_by_due_date(filtered_tasks)
+        filter_by_due_date(tasks)
     elif choice == "3":
-        filter_by_status(filtered_tasks)
+        filter_by_status(tasks)
     else:
         print("Invalid choice. Please enter a valid option.")
 
 
 def filter_by_priority(tasks, priority):
-    filtered_tasks = [
-        task for task in tasks if task.get('priority') == priority
-    ]
+    priority = priority.lower()
+    filtered_tasks = [task for task in tasks if task.get(
+        'priority', '').lower() == priority.lower()]
     if not filtered_tasks:
         print(f"No tasks matching the specified priority level ({priority}).")
     else:
         print("Filtered Tasks:")
         for i, task in enumerate(filtered_tasks):
-            print(
-                f"{i + 1}. Title: {task['title']}, "
-                f"Priority: {task['priority']}"
-            )
+            print(f"{i + 1}. Title: {task['title']}, Priority: {task['priority']}")
 
 
-def filter_by_due_date(filtered_tasks):
-    due_date = input("Enter the due date (YYYY-MM-DD): ")
+
+def filter_by_due_date(tasks):
+    deadline = input("Enter the due date (YYYY-MM-DD): ")
     filtered_tasks = [
-        task for task in filtered_tasks if task.get("deadline") == due_date
-    ]
+        task for task in tasks if task.get("deadline") == deadline]
     if not filtered_tasks:
         print("No tasks matching the specified due date.")
     else:
@@ -183,11 +161,10 @@ def filter_by_due_date(filtered_tasks):
             )
 
 
-def filter_by_status(filtered_tasks):
-    status = input("Enter the status (e.g., Pending, In Completed): ")
-    filtered_tasks = [
-        task for task in filtered_tasks if task.get('status') == status
-    ]
+def filter_by_status(tasks):
+    status = input(
+        "Enter the status (e.g., Pending, In Progress, Completed): ")
+    filtered_tasks = [task for task in tasks if task.get('status') == status]
 
     if not filtered_tasks:
         print("No tasks matching the specified status.")
@@ -237,10 +214,12 @@ def handle_user_choice(choice):
         index = int(input("Enter the index of the task to update: ")) - 1
 
         if 0 <= index < len(tasks):
+            print("Selected task:", tasks[index])
             print("1. Update Title")
             print("2. Update Description")
             print("3. Update Status")
             print("4. Update Priority")
+            print("5. Update Deadline")
             update_choice = input("Enter your choice: ")
 
             if update_choice == "1":
@@ -250,21 +229,26 @@ def handle_user_choice(choice):
                 description = input("Enter new description: ")
                 update_task(index, description=description)
             elif update_choice == "3":
-                status = input("Enter new status: ")
+                status = input(
+                    "Enter new status (e.g., Pending, In Progress, Completed): ")
                 update_task(index, status=status)
             elif update_choice == "4":
-                priority = input("Enter new priority: ")
+                priority = input("Enter new priority (High, Medium, Low): ")
                 update_task(index, priority=priority)
+            elif update_choice == "5":
+                deadline = input("Enter new deadline (YYYY-MM-DD): ")
+                update_task(index, deadline=deadline)
             else:
                 print("Invalid choice. Please enter a valid option.")
         else:
             print("Invalid task index.")
     elif choice == 3:
-        list_all_tasks()
+        list_tasks()
     elif choice == 4:
-        handle_delete_task()
+        index = int(input("Enter the index of the task to delete: ")) - 1
+        delete_task(index)
     elif choice == 5:
-        handle_filter_tasks()
+        filter_tasks()
     elif choice == 6:
         handle_sort_tasks()
     elif choice == 7:
@@ -272,47 +256,6 @@ def handle_user_choice(choice):
         exit()
     else:
         print("Invalid choice. Please select a valid option.")
-
-
-def list_all_tasks():
-    list_tasks()
-
-
-def handle_update_task():
-    list_tasks()
-    index = int(input("Enter the index of the task to update: ")) - 1
-
-    print("Number of tasks:", len(tasks))
-
-    if 0 <= index < len(tasks):
-        print("1. Update Title")
-        print("2. Update Description")
-        print("3. Update Status")
-        update_choice = input("Enter your choice: ")
-
-        if update_choice == "1":
-            title = input("Enter new title: ")
-            update_task(index, title=title)
-        elif update_choice == "2":
-            description = input("Enter new description: ")
-            update_task(index, description=description)
-        elif update_choice == "3":
-            status = input("Enter new status: ")
-            update_task(index, status=status)
-        else:
-            print("Invalid choice. Please enter a valid option.")
-    else:
-        print("Invalid task index.")
-
-
-def handle_delete_task():
-    list_tasks()
-    index = int(input("Enter the index of the task to delete: ")) - 1
-    delete_task(index)
-
-
-def handle_filter_tasks():
-    filter_tasks()
 
 
 def handle_sort_tasks():
@@ -332,7 +275,9 @@ def handle_sort_tasks():
 
 
 def main_menu():
+    global tasks
     print(ascii_art_header)
+    tasks = []
     load_tasks()
 
     while True:
