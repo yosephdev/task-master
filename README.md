@@ -1,6 +1,6 @@
 # Task Master
 
-Task Master is a Python command-line application designed to help users organize and manage their tasks efficiently. It provides a user-friendly interface where users can add, update, list, and delete tasks. The application utilizes basic data structures such as lists and dictionaries to store task information and incorporates file I/O operations for persistent data storage.
+Task Master is a Python command-line application designed to help users organize and manage their tasks efficiently. The application provides a user-friendly interface where users can add, update, list, and delete tasks. It utilizes basic data structures such as lists and dictionaries to store task information and incorporates file I/O operations for persistent data storage.
 
 ![Here is the live version of my project.](./docs/responsive-mockup.png)
 
@@ -17,7 +17,6 @@ Task Master is a Python command-line application designed to help users organize
   - [Core Logic for Managing Tasks](#core-logic-for-managing-tasks)
   - [Documentation](#documentation)
   - [Testing](#testing)
-  - [Bugs](#bugs)
   - [Validator Testing](#validator-testing)
   - [Deployment](#deployment)
   - [Credits](#credits)
@@ -53,15 +52,10 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 ### Implemented Features
 
 1. **Task Deadlines:** Users can now add deadlines to tasks, allowing for better task tracking and time management.
-
 2. **Adding Tasks:** Users can add new tasks to the task list, providing a title, description, and optional deadline.
-
 3. **Updating Tasks:** Users can update existing tasks, modifying their title, description, status, or deadline as needed.
-
 4. **Listing Tasks:** Users can view a list of all tasks, including their titles, descriptions, statuses, and deadlines.
-
 5. **Deleting Tasks:** Users can delete tasks from the task list, removing them permanently.
-
 6. **Task Filtering and Sorting:** Users can filter and sort tasks based on criteria such as priority, due date, and status.
 
 ## Libraries Used
@@ -69,15 +63,10 @@ Task Master presents a menu-driven interface with options for adding, updating, 
 Task Master makes use of the following Python libraries to enhance its functionality:
 
 - **os**: Utilized for handling file I/O operations, allowing Task Master to store and retrieve task data from local storage.
-  
 - **json**: Employed for serializing and deserializing task data to and from JSON format, enabling persistent storage of tasks in a structured manner.
-
 - **datetime**: Used for handling date and time-related operations, particularly for managing task deadlines effectively.
-
 - **gspread**: Integrated for interacting with Google Sheets, facilitating seamless integration with online spreadsheets for task management.
-
 - **google.oauth2.service_account**: Used in conjunction with gspread for authentication and authorization when accessing Google Sheets.
-
 - **re**: Employed for regular expression-based validation, ensuring data integrity and format adherence in certain input fields.
 
 These libraries were selected for their compatibility with Python and their ability to streamline essential functionalities required for task management in Task Master.
@@ -107,12 +96,6 @@ I have manually tested Task Master by performing the following steps:
 3. Tested different combinations of task data, including various titles, descriptions, and statuses, to ensure that tasks are added, updated, listed, and deleted accurately.
 4. Checked for each outcome of the task management operations to verify if the correct output is displayed. Ensured that tasks are manipulated as expected and that the application behaves correctly in all scenarios.
 5. Verified the functionality for multiple task management sessions to ensure that the tasks are persisted correctly between sessions and that the application maintains accurate task data.
-
-## Bugs
-
-- **Deadline Format Validation:** The application allows users to input any format for the deadline. It should enforce a strict format (YYYY-MM-DD) and reject any other format.
-  
-- **Deleting Last Task:** If the user deletes the last task, the application crashes because there's no row to delete. It should display a message informing the user that there are no tasks to delete.
 
 ## Validator Testing
 
