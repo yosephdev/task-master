@@ -142,6 +142,10 @@ def list_tasks():
 
 
 def delete_task(index):
+    if not tasks:
+        print("No tasks to delete.")
+        return
+
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
         return
