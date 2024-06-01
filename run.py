@@ -16,7 +16,18 @@ ___
 
 def get_google_sheets_client():
     scope = ['https://www.googleapis.com/auth/spreadsheets']
-    creds = json.loads(os.environ.get('CREDS_JSON'))
+    creds_json = os.environ.get('CREDS_JSON')
+
+    if not creds_json:
+        print("Error: CREDS_JSON environment variable is not set.")
+        return None
+
+    try:
+        creds = json.loads(creds_json)
+    except json.JSONDecodeError:
+        print("Error: CREDS_JSON environment variable is not a valid JSON string.")
+        return None
+
     return gspread.service_account_from_dict(creds)
 
 
@@ -25,6 +36,9 @@ def load_tasks():
     global new_sheet
 
     client = get_google_sheets_client()
+    if client is None:
+        print("Error: Unable to authenticate with Google Sheets API.")
+        return
     spreadsheet_id = os.environ.get('SPREADSHEET_ID')
     sheet_title = 'Tasks'
     new_sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_title)
