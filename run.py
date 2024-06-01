@@ -16,20 +16,25 @@ ___
 """
 
 def get_google_sheets_client():
-    creds_path = 'creds.json'  
-    if not os.path.exists(creds_path):
-        print(f"Error: {creds_path} file not found.")
+    creds_json = os.getenv('CREDS_JSON')
+    if not creds_json:
+        print("Error: CREDS_JSON environment variable is not set.")
         return None
 
     try:
-        with open(creds_path) as f:
-            creds = json.load(f)
+        creds_dict = json.loads(creds_json)
     except json.JSONDecodeError:
-        print("Error: Invalid JSON in creds.json file.")
+        print("Error: Invalid JSON in CREDS_JSON environment variable.")
         return None
 
+    scopes = [
+        'https://www.googleapis.com/auth/spreadsheets',
+        'https://www.googleapis.com/auth/drive'
+    ]
+
     try:
-        return gspread.service_account_from_dict(creds)
+        credentials = Credentials.from_service_account_info(creds_dict, scopes=scopes)
+        return gspread.authorize(credentials)
     except Exception as e:
         print(f"Error: {e}")
         return None
