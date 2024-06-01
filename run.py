@@ -54,13 +54,23 @@ def load_tasks():
             'deadline': task[' Deadline']
         })
 
+valid_statuses = ['Pending', 'In Progress', 'Completed']
+valid_priorities = ['High', 'Medium', 'Low']
 
 def add_task(title, description, status='Pending', priority=None,
              deadline=None):
     if not title.strip() or not description.strip():
         print("Task title and description cannot be empty.")
         return
-        
+    
+    if status not in valid_statuses:
+        print(f"Invalid status. Valid options are: {', '.join(valid_statuses)}")
+        return
+
+    if priority and priority not in valid_priorities:
+        print(f"Invalid priority. Valid options are: {', '.join(valid_priorities)}")
+        return
+
     if deadline:
         if not re.match(r"^\d{4}-\d{2}-\d{2}$", deadline):
             print("Invalid deadline format. Please enter in YYYY-MM-DD.")
@@ -84,6 +94,14 @@ def update_task(index, title=None, description=None, status=None,
                 priority=None, deadline=None):
     if index < 0 or index >= len(tasks):
         print("Invalid task index.")
+        return
+    
+    if status not in valid_statuses:
+        print(f"Invalid status. Valid options are: {', '.join(valid_statuses)}")
+        return
+
+    if priority and priority not in valid_priorities:
+        print(f"Invalid priority. Valid options are: {', '.join(valid_priorities)}")
         return
 
     sheet_index = index + 2
