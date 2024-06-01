@@ -57,6 +57,10 @@ def load_tasks():
 
 def add_task(title, description, status='Pending', priority=None,
              deadline=None):
+    if not title.strip() or not description.strip():
+        print("Task title and description cannot be empty.")
+        return
+        
     if deadline:
         if not re.match(r"^\d{4}-\d{2}-\d{2}$", deadline):
             print("Invalid deadline format. Please enter in YYYY-MM-DD.")
