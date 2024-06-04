@@ -173,7 +173,9 @@ def update_task(
     print("Task updated successfully.")
 
 
-def list_tasks(tasks):
+def list_tasks(tasks, sorted_tasks=None):
+    if sorted_tasks:
+        tasks = sorted_tasks
     print("Number of tasks:", len(tasks))
     print("List of Tasks:")
     for i, task in enumerate(tasks):
@@ -288,8 +290,9 @@ def filter_by_status(tasks):
 
 
 def sort_tasks(tasks, key):
-    tasks.sort(key=lambda x: x.get(key))
+    sorted_tasks = sorted(tasks, key=lambda x: x.get(key))
     print("Tasks sorted successfully.")
+    list_tasks(tasks, sorted_tasks)
 
 
 def get_user_choice():
