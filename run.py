@@ -137,6 +137,19 @@ def update_task(
 
     sheet_index = index + 2
 
+    if title is not None and not title.strip():
+        print("Task title cannot be empty.")
+        return
+    if description is not None and not description.strip():
+        print("Task description cannot be empty.")
+        return
+    if priority is None:
+        print("Task priority cannot be empty.")
+        return
+    if deadline is None:
+        print("Task deadline cannot be empty.")
+        return
+
     if title is not None:
         tasks[index]["title"] = title
         sheet.update_cell(sheet_index, 1, title)
