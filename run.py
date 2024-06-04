@@ -265,10 +265,14 @@ def filter_by_due_date(tasks):
 
 
 def filter_by_status(tasks):
-    status = input("Enter task status (Pending, In Progress, Completed): ")
+    status = input("Enter task status (Pending, In Progress, Completed): ").strip()
+    if not status:
+        print("Task status cannot be empty.")
+        return
     filtered_tasks = [
         task for task in tasks if task.get("status", "").lower() == status.lower()
     ]
+
     if not filtered_tasks:
         print(f"No tasks matching the specified status ({status}).")
     else:
